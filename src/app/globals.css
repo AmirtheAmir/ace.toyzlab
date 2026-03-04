@@ -6,21 +6,154 @@
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* sand – Dark and Light colors */
+  --sand-light-50: #fafaf9;
+  --sand-light-100: #f6f5f4;
+  --sand-light-200: #edebe8;
+  --sand-light-300: #e4e2dd;
+  --sand-light-400: #dbd8d1;
+  --sand-light-500: #c9c4ba;
+  --sand-light-600: #b7b1a4;
+  --sand-light-800: #897f6c;
+  --sand-dark-200: #171512;
+  --sand-dark-300: #22201b;
+  /* Brand Primary colors */
+  --red-500: #fc1302;
+  /* Brand Supplement colors */
+  --orange-500: #fc5203;
+
+
+   /* Background */
+  --color-bg-base: var(--sand-light-50);
+  --color-bg-surface: var(--sand-light-100);
+  --color-bg-elevated: var(--sand-light-200);
+  --color-bg-hover: var(--sand-light-300);
+  --color-bg-scroll: var(--sand-light-400);
+  --color-bg-inverted: var( --sand-dark-200);
+  /* Border */
+  --color-border-primary: var(--sand-dark-300);
+  --color-border-secondary: var(--sand-light-500);
+  /* Text */
+  --color-text-primary: var(--sand-dark-200);
+  --color-text-secondary: var(--sand-light-800);
+  --color-text-tertiary: var(--sand-light-600);
+  --color-text-inverted: var(--sand-light-50);
+    /* Brand */
+  --color-brand-primary: var(--red-500);
+  --color-brand-supplementary: var(--orange-500);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base family: Google Sans Flex (CSS var) + fallbacks */
+.font-2XL-500 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 92px;
+  line-height: 1.1;          /* 110% */
+  letter-spacing: -0.01em;   /* -1% */
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.font-2XL-600 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 92px;
+  line-height: 1.1;          /* 110% */
+  letter-spacing: -0.01em;   /* -1% */
+}
+
+.font-XL-500 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.5;          /* 150% */
+  letter-spacing: -0.01em;   /* -1% */
+}
+
+.font-XL-600 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.5;          /* 150% */
+  letter-spacing: -0.01em;   /* -1% */
+}
+
+.font-L-500 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.5;          /* 150% */
+  letter-spacing: 0em;       /* -0% (treated as 0) */
+}
+
+.font-L-600 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.5;          /* 150% */
+  letter-spacing: 0em;       /* -0% (treated as 0) */
+}
+
+.font-M-500 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.44;         /* 144% */
+  letter-spacing: 0.01em;    /* 1% */
+}
+
+.font-M-500-lined {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.44;         /* 144% */
+  letter-spacing: 0.01em;    /* 1% */
+  text-decoration: line-through;
+}
+
+.font-M-600 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.44;         /* 144% */
+  letter-spacing: 0.01em;    /* 1% */
+}
+
+.font-S-500 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.34;         /* 134% */
+  letter-spacing: 0.02em;    /* 2% */
+}
+
+.font-S-500-lined {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.34;         /* 134% */
+  letter-spacing: 0.02em;    /* 2% */
+   text-decoration: line-through;
+}
+
+.font-S-600 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.34;         /* 134% */
+  letter-spacing: 0.02em;    /* 2% */
+}
+
+.font-XS-500 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 1.2;          /* 120% */
+  letter-spacing: 0.03em;    /* 3% */
+}
+
+.font-XS-600 {
+  font-family: var(--font-sansFlex), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 1.2;          /* 120% */
+  letter-spacing: 0.03em;    /* 3% */
 }
