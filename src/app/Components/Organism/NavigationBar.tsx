@@ -1,4 +1,3 @@
-// src/app/components/organisms/NavigationBar.tsx
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -33,25 +32,20 @@ export default function NavigationBar() {
     <>
       <Overlay open={!!openMenu} onClose={() => setOpenMenu(null)} />
 
-      <div className="w-full border-b border-black/40 bg-white">
-        <div
-          ref={rootRef}
-          className="mx-auto max-w-[1280px] h-12 flex items-stretch"
-        >
-          {/* Left molecule */}
-          <div className="flex-none">
+      <div className="w-full ring ring-border-primary">
+        <div ref={rootRef} className="flex w-full ">
+          {/* Left */}
+          <div className="shrink-0">
             <NavLeft openMenu={openMenu} setOpenMenu={setOpenMenu} />
           </div>
 
-          {/* Center logo area (mx-auto keeps it centered) */}
-          <div className="mx-auto flex items-stretch min-w-0">
-            <div className="w-[520px] bg-black border-x border-black/40 flex items-center justify-center">
-              <LogoIcon className="h-5 w-auto text-white" />
-            </div>
+          {/* Center fills ALL remaining space */}
+          <div className="flex-1 min-w-16 bg-bg-inverted flex items-center justify-center">
+            <LogoIcon className="text-text-inverted" />
           </div>
 
-          {/* Right molecule */}
-          <div className="flex-none">
+          {/* Right */}
+          <div className="shrink-0">
             <NavRight openMenu={openMenu} setOpenMenu={setOpenMenu} />
           </div>
         </div>

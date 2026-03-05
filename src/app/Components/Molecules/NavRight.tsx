@@ -1,21 +1,10 @@
-// src/app/components/molecules/NavRight.tsx
 import React, { useMemo, useState } from "react";
 import IconButton from "../Atoms/IconButton";
-import NavButton from "../Atoms/NavButton";
+import CurrencyNavButton from "../Atoms/CurrencyNavButton";
 import FloatingSearchInput from "../Atoms/FloatingSearchInput";
 import { CartIcon, PersonIcon, SearchIcon } from "../../../../public/Icons";
-
-type Currency = { country: string; code: string; symbol: string };
-
-const CURRENCIES: Currency[] = [
-  { country: "United States", code: "USD", symbol: "$" },
-  { country: "Canada", code: "CAD", symbol: "$" },
-  { country: "Finland", code: "EUR", symbol: "€" },
-  { country: "United Kingdom", code: "GBP", symbol: "£" },
-  { country: "Australia", code: "AUD", symbol: "$" },
-  { country: "Germany", code: "EUR", symbol: "€" },
-];
-
+import { CURRENCIES, type Currency } from "../../../Data/currencies";
+import styles  from "./Styles.module.css"
 type Props = {
   openMenu: string | null;
   setOpenMenu: (v: string | null) => void;
@@ -37,37 +26,37 @@ export default function NavRight({ openMenu, setOpenMenu }: Props) {
   }, [query]);
 
   return (
-    <div className="flex items-stretch">
-      <IconButton label="Search">
-        <SearchIcon className="w-4.5 h-4.5" />
-      </IconButton>
-
-      <IconButton label="Account">
-        <PersonIcon className="w-4.5 h-4.5" />
-      </IconButton>
-
-      <IconButton label="Cart">
-        <CartIcon className="w-4.5 h-4.5" />
-      </IconButton>
+    <div className="flex ring ring-border-primary">
+      <div className="flex flew-row gap-4 bg-bg-base items-center justify-center px-4 text-text-primary">
+        <IconButton label="Search">
+          <SearchIcon />
+        </IconButton>
+        <IconButton label="Account">
+          <PersonIcon />
+        </IconButton>
+        <IconButton label="Cart">
+          <CartIcon />
+        </IconButton>
+      </div>
 
       <div className="relative">
-        <NavButton
-          label={`${selected.country} | ${selected.code} ${selected.symbol}`}
-          hasDropdown
+        <CurrencyNavButton
+          country={selected.country}
+          code={selected.code}
+          symbol={selected.symbol}
           active={openMenu === "currency"}
           onClick={() => toggle("currency")}
-          className="-ml-px min-w-[220px] justify-between"
         />
 
         {openMenu === "currency" && (
-          <div className="absolute right-0 top-full z-50 w-[320px] border border-black/30 bg-white p-3">
+          <div className="absolute right-0 top-12.25 gap-2 p-3 flex flex-col z-50 w-84 bg-bg-base ring ring-border-primary">
             <FloatingSearchInput
               label="Search"
               value={query}
               onChange={setQuery}
             />
 
-            <div className="mt-3 max-h-[240px] overflow-auto pr-1">
+            <div className={`mt-2 max-h-45.5 flex flex-col gap-2 overflow-y-auto ${styles["scrollbar-clean"]}`}>
               {filtered.map((c) => {
                 const isActive =
                   c.country === selected.country && c.code === selected.code;
@@ -77,20 +66,22 @@ export default function NavRight({ openMenu, setOpenMenu }: Props) {
                     key={`${c.country}-${c.code}`}
                     type="button"
                     onClick={() => setSelected(c)}
-                    className="w-full flex items-center justify-between px-2 py-2 text-[14px]"
+                    className="w-full flex items-center justify-between pl-3 font-S-500"
                   >
                     <span
                       className={
                         isActive
-                          ? "text-black font-medium underline underline-offset-4"
-                          : "text-black/55"
+                          ? "text-text-primary font-S-500 underline underline-offset-4"
+                          : "text-text-secondary hover:underline hover:underline-offset-4 hover:text-text-primary transition-colors duration-200 ease-in"
                       }
                     >
                       {c.country}
                     </span>
                     <span
                       className={
-                        isActive ? "text-black font-medium" : "text-black/55"
+                        isActive
+                          ? "text-text-primary font-S-500"
+                          : "text-text-secondary"
                       }
                     >
                       {c.code} {c.symbol}

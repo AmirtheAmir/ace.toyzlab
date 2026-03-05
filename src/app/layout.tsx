@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Google_Sans_Flex } from 'next/font/google'
-import "./globals.css";
+import "./globals.css"
 
 const googleSansFlex = Google_Sans_Flex({
   subsets: ['latin'],
@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${googleSansFlex.variable} font-sans`}
+        className={`${googleSansFlex.variable} font-sans items-center justify-center flex bg-bg-base`}
       >
         {children}
       </body>

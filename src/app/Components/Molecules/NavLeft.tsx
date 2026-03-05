@@ -1,5 +1,3 @@
-// src/app/components/molecules/NavLeft.tsx
-import React from "react";
 import NavButton from "../Atoms/NavButton";
 
 type Props = {
@@ -11,8 +9,8 @@ export default function NavLeft({ openMenu, setOpenMenu }: Props) {
   const toggle = (key: string) => setOpenMenu(openMenu === key ? null : key);
 
   return (
-    <div className="flex items-stretch">
-      <NavButton label="All" onClick={() => setOpenMenu(null)} />
+    <div className="flex ring ring-border-primary ">
+      <NavButton label="All" />
 
       <div className="relative">
         <NavButton
@@ -20,16 +18,16 @@ export default function NavLeft({ openMenu, setOpenMenu }: Props) {
           hasDropdown
           active={openMenu === "watches"}
           onClick={() => toggle("watches")}
-          className="-ml-px"
+          className=""
         />
 
         {openMenu === "watches" && (
-          <div className="absolute left-0 top-full z-50 w-56 border border-black/30 bg-white">
+          <div className="absolute left-0 top-12.25 gap-3 p-3 flex flex-col z-50 w-45 bg-bg-base ring ring-border-primary">
             {["Classic", "Tactical"].map((item) => (
               <button
                 key={item}
                 type="button"
-                className="w-full text-left px-6 py-3 text-[14px] text-black/60 hover:underline hover:underline-offset-4"
+                className="w-full text-left font-S-500 text-text-secondary hover:underline hover:underline-offset-4 hover:text-text-primary transition-colors duration-200 ease-in"
               >
                 {item}
               </button>
@@ -44,16 +42,16 @@ export default function NavLeft({ openMenu, setOpenMenu }: Props) {
           hasDropdown
           active={openMenu === "accessories"}
           onClick={() => toggle("accessories")}
-          className="-ml-px"
+          className=""
         />
 
         {openMenu === "accessories" && (
-          <div className="absolute left-0 top-full z-50 w-56 border border-black/30 bg-white">
+          <div className="absolute left-0 top-12.25 gap-3 p-3 flex flex-col z-50 w-45 bg-bg-base ring ring-border-primary">
             {["Glasses", "Lighter"].map((item) => (
               <button
                 key={item}
                 type="button"
-                className="w-full text-left px-6 py-3 text-[14px] text-black/60 hover:underline hover:underline-offset-4"
+                className="w-full text-left font-S-500 text-text-secondary hover:underline hover:underline-offset-4 hover:text-text-primary transition-colors duration-200 ease-in"
               >
                 {item}
               </button>
@@ -62,7 +60,12 @@ export default function NavLeft({ openMenu, setOpenMenu }: Props) {
         )}
       </div>
 
-      <NavButton label="AGGREGAT" onClick={() => setOpenMenu(null)} className="-ml-px" />
+      <NavButton
+        label="AGGREGAT"
+        exclusive
+        onClick={() => setOpenMenu(null)}
+        className=""
+      />
     </div>
   );
 }

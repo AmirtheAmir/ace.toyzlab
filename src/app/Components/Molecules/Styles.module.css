@@ -1,0 +1,21 @@
+.scrollbar-clean {
+  padding-right: 4px; /* or padding-inline-end */
+}
+.scrollbar-clean::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-clean::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-clean::-webkit-scrollbar-thumb {
+  background-color: var(--color-bg-scroll);
+  border-radius: 9999px;
+}
+
+.scrollbar-clean::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  -webkit-appearance: none;
+}

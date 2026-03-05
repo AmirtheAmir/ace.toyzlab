@@ -1,5 +1,4 @@
-// src/app/components/atoms/Overlay.tsx
-import React from "react";
+
 
 type Props = {
   open: boolean;
@@ -14,7 +13,7 @@ export default function Overlay({ open, onClose }: Props) {
       type="button"
       aria-label="Close overlay"
       onClick={onClose}
-      className="fixed inset-0 z-40 bg-black/20 cursor-default"
+      className="fixed inset-0 z-40 cursor-default"
     />
   );
 }

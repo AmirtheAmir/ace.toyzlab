@@ -1,11 +1,10 @@
-
 import NavigationBar from "./Components/Organism/NavigationBar";
 
 export default function Home() {
   return (
-    <main>
+    <main className="max-w-7xl w-full m-2">
       <NavigationBar />
-      <div className="p-10"> hello </div>
+      <div className=""> hello </div>
     </main>
   );
 }
