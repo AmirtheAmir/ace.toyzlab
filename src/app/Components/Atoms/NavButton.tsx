@@ -25,7 +25,7 @@ export default function NavButton({
         " border bg-bg-base border-none ringed-navbutton ",
         "flex items-center gap-2",
         "font-S-500 text-text-primary",
-          exclusive ? "hover:bg-red-500 transition-colors duration-300 ease-in" : "",
+          exclusive ? "hover:bg-brand-primary transition-colors duration-300 ease-in" : "",
         hasDropdown ? "py-4 pl-6 pr-4" : "py-4 px-6",
         active
           ? "underline underline-offset-4"
