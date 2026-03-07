@@ -4,6 +4,7 @@ import React, { useMemo, useState } from "react";
 import FloatingSearchInput from "../Atoms/FloatingSearchInput";
 import IconButton from "../Atoms/IconButton";
 import CurrencyNavButton from "../Atoms/CurrencyNavButton";
+import SearchResultOverlay from "../Organism/SearchResultOverlay";
 import { CartIcon, CloseIcon, PersonIcon } from "../../../../public/Icons";
 import { CURRENCIES } from "../../../Data/currencies";
 import { useCurrency } from "@/Context/CurrencyContext";
@@ -35,10 +36,10 @@ export default function SearchNavRow({
   }, [currencyQuery]);
 
   return (
-    <div className="w-full  ring ring-border-primary bg-bg-base">
-      <div className="flex  w-full ">
+    <div className="relative w-full ring ring-border-primary bg-bg-base">
+      <div className="relative z-60 bg-bg-base ring ring-border-primary flex w-full">
         <div className="flex-1 min-w-0">
-          <div className=" flex h-full w-full items-center">
+          <div className="flex h-full w-full items-center">
             <FloatingSearchInput
               label="Search"
               value={query}
@@ -75,7 +76,7 @@ export default function SearchNavRow({
           />
 
           {openMenu === "currency" && (
-            <div className="absolute right-0 top-12.25 gap-2 p-3 flex flex-col z-50 w-84 bg-bg-base ring ring-border-primary">
+            <div className="absolute right-0 top-12.25 z-50 flex w-84 flex-col gap-2 bg-bg-base p-3 ring ring-border-primary">
               <FloatingSearchInput
                 label="Search"
                 value={currencyQuery}
@@ -128,6 +129,11 @@ export default function SearchNavRow({
           )}
         </div>
       </div>
+
+      <SearchResultOverlay
+        query={query}
+        onSuggestionClick={setQuery}
+      />
     </div>
   );
 }
