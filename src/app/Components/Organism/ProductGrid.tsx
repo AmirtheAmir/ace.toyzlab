@@ -9,8 +9,9 @@ export default function ProductGrid() {
         {itemData.slice(0, 9).map((item) => (
           <ProductCard
             key={item.id}
+            slug={item.slug}
             name={item.name}
-            image={item.image}
+            image={item.mainImage}
             price={item.price}
             oldPrice={item.oldPrice}
             soldOut={item.soldOut}

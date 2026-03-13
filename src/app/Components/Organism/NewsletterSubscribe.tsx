@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import EmailInput from "../Atoms/EmailInput";
 import InstagramButton from "../Atoms/InstagramButton";
 
@@ -12,7 +12,7 @@ export default function NewsletterSubscribe() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit() {
+  const handleSubmit = useCallback(async () => {
     const cleaned = email.trim();
 
     if (!cleaned) {
@@ -55,9 +55,9 @@ export default function NewsletterSubscribe() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [email]);
 
-  function handleChange(value: string) {
+  const handleChange = useCallback((value: string) => {
     setEmail(value);
 
     if (!value.trim()) {
@@ -66,11 +66,9 @@ export default function NewsletterSubscribe() {
       return;
     }
 
-    if (status !== "success") {
-      setStatus("typing");
-      setMessage("");
-    }
-  }
+    setStatus((prev) => (prev === "success" ? prev : "typing"));
+    setMessage("");
+  }, []);
 
   return (
     <section className="w-full py-12">
@@ -81,7 +79,7 @@ export default function NewsletterSubscribe() {
           </h3>
         </div>
 
-        <div className="flex flex-row justify-between w-full">
+        <div className="flex flex-row h-18 justify-between w-full">
           <EmailInput
             value={email}
             onChange={handleChange}
@@ -91,7 +89,7 @@ export default function NewsletterSubscribe() {
             disabled={loading}
           />
 
-          <InstagramButton />
+          <InstagramButton className="self-start" />
         </div>
       </div>
     </section>

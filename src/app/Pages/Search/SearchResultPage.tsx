@@ -122,8 +122,9 @@ export default function SearchResultPage({ query }: Props) {
         {filteredProducts.map((product) => (
           <ProductCard
             key={product.id}
+            slug={product.slug}
             name={product.name}
-            image={product.image}
+            image={product.mainImage}
             price={product.price}
             oldPrice={product.oldPrice}
             soldOut={product.soldOut}

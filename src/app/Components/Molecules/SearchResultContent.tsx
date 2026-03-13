@@ -11,6 +11,7 @@ type Props = {
   products: ProductItem[];
   onSuggestionClick: (value: string) => void;
   onSearchSubmit: () => void;
+  onProductClick: () => void;
 };
 
 export default function SearchResultContent({
@@ -19,6 +20,7 @@ export default function SearchResultContent({
   products,
   onSuggestionClick,
   onSearchSubmit,
+  onProductClick,
 }: Props) {
   return (
     <div className="flex flex-col ring ring-border-primary gap-2 bg-bg-base p-4 w-full">
@@ -29,7 +31,7 @@ export default function SearchResultContent({
           onSuggestionClick={onSuggestionClick}
         />
 
-        <ProductColumn products={products} />
+        <ProductColumn products={products} onProductClick={onProductClick} />
       </div>
 
       <div className="flex justify-end">

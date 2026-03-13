@@ -17,11 +17,6 @@ const sansFlex = localFont({
       weight: "600",
       style: "normal",
     },
-    {
-      path: "./fonts/GoogleSansFlex-VariableFont.ttf",
-       weight: "700",
-      style: "normal",
-    },
   ],
   variable: "--font-SansFlex",
   display: "swap",

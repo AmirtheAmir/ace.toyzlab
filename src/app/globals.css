@@ -3,8 +3,8 @@
 
 @theme {
   /* sand – Dark and Light colors */
-  --sand-light-50: #fafaf9;
-  --sand-light-100: #f6f5f4;
+  --sand-light-50: #F6F5F4;
+  --sand-light-100: #F2F0EE;
   --sand-light-200: #edebe8;
   --sand-light-300: #e4e2dd;
   --sand-light-400: #dbd8d1;
@@ -42,7 +42,7 @@
 .font-2XL-500 {
   font-family: var(--font-SansFlex), system-ui, sans-serif;
   font-weight: 500;
-  font-size: 92px;
+  font-size: 96px;
   line-height: 1.1; /* 110% */
   letter-spacing: 0em; /* -1% */
 }
@@ -50,18 +50,11 @@
 .font-2XL-600 {
   font-family: var(--font-SansFlex), system-ui, sans-serif;
   font-weight: 600;
-  font-size: 92px;
+  font-size: 96px;
   line-height: 1.1; /* 110% */
   letter-spacing: 0em; /* -1% */
 }
 
-.font-2XL-700 {
-  font-family: var(--font-SansFlex), system-ui, sans-serif;
-  font-weight: 700;
-  font-size: 92px;
-  line-height: 1.1; /* 110% */
-  letter-spacing: 0em; /* -1% */
-}
 
 .font-XL-500 {
   font-family: var(--font-SansFlex), system-ui, sans-serif;

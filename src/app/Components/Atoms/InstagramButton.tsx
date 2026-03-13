@@ -16,12 +16,12 @@ export default function InstagramButton({
     <button
       onClick={onClick}
       className={[
-        "flex items-center gap-3",
-        "pl-3.5 pr-6.5 py-3.5",
-        "border border-border-primary",
+        "flex items-center gap-4",
+        "pl-3.5 pr-6.5 p-3.5",
+        "ring ring-border-primary",
         "font-M-500 text-text-primary",
         "transition-colors duration-300",
-        "hover:bg-bg-hover",
+        "hover:bg-bg-surface cursor-pointer",
         className,
       ].join(" ")}
     >

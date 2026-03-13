@@ -22,7 +22,7 @@ export default function CurrencyNavButton({
       type="button"
       onClick={onClick}
       className={[
-        "  bg-bg-base border-none select-none hover:cursor-pointer flex justify-center   w-53",
+        "  bg-bg-base border-none select-none hover:cursor-pointer flex justify-center w-57",
         "flex items-center gap-2 ringed-currencynavbutton",
         "font-S-500 text-text-primary",
         "py-4 px-6 ",

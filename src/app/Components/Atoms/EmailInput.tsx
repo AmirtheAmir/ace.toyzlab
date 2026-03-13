@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   RightArrowIcon,
   CloseIcon,
-  Check16Icon,
+  CheckIcon,
 } from "../../../../public/Icons";
 
 type Status = "idle" | "typing" | "duplicate" | "success";
@@ -30,40 +30,99 @@ export default function EmailInput({
   message,
   disabled = false,
 }: Props) {
+  const [isFocused, setIsFocused] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
   const isDuplicate = status === "duplicate";
   const isSuccess = status === "success";
+  const active = value.length > 0 || isFocused;
+
+  const resetInput = useCallback(() => {
+    onChange("");
+    setIsFocused(false);
+  }, [onChange]);
+
+  const handleButtonClick = () => {
+    if (isDuplicate) {
+      resetInput();
+      return;
+    }
+
+    if (!isSuccess && !disabled) {
+      onSubmit();
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!wrapperRef.current) return;
+
+      if (!wrapperRef.current.contains(event.target as Node)) {
+        resetInput();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [resetInput]);
+
+  useEffect(() => {
+    if (!isSuccess) return;
+
+    const timeout = setTimeout(() => {
+      resetInput();
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [isSuccess, resetInput]);
 
   return (
-    <div className={["flex flex-col gap-2", className].join(" ")}>
+    <div ref={wrapperRef} className={["flex flex-col gap-1", className].join(" ")}>
       <div
         className={[
-          "flex items-center justify-between w-104 border p-3.5 transition-colors",
-          isDuplicate ? "border-[#FC5A03]" : "border-border-primary",
+          "flex items-center select-none justify-between w-104 hover:bg-bg-surface p-3.5 border transition-colors",
+          isDuplicate ? "border-brand-supplementary" : "border-border-primary",
         ].join(" ")}
       >
-        <div className="flex w-full flex-col gap-1">
-          <span className="font-S-500 text-text-secondary">{placeholder}</span>
+        <div className="relative flex-1 h-full flex items-end">
+          <label
+            className={[
+              "absolute left-0 pointer-events-none text-text-secondary transition-all duration-300",
+              active
+                ? "-top-1.5 font-S-500"
+                : "top-1/2 -translate-y-1/2 font-M-500",
+            ].join(" ")}
+          >
+            {placeholder}
+          </label>
 
           <input
             type="email"
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
             onKeyDown={(e) => {
-              if (e.key === "Enter") onSubmit();
+              if (e.key === "Enter" && !isSuccess && !disabled) {
+                e.preventDefault();
+                onSubmit();
+              }
             }}
             disabled={disabled || isSuccess}
-            className="w-full bg-transparent outline-none font-M-500 text-text-primary placeholder:text-text-secondary"
+            className="absolute left-0 right-0 bottom-1.5 top-1.5 h-full w-full bg-transparent outline-none font-M-500 text-text-primary caret-text-primary"
           />
         </div>
 
         <button
           type="button"
-          onClick={onSubmit}
+          onClick={handleButtonClick}
           disabled={disabled || isSuccess}
           className={[
-            "ml-4 shrink-0 transition-colors",
+            "shrink-0 transition-colors",
             isDuplicate
-              ? "text-[#FC5A03]"
+              ? "text-brand-supplementary"
               : isSuccess
               ? "text-text-primary"
               : "text-text-secondary hover:text-text-primary",
@@ -72,7 +131,7 @@ export default function EmailInput({
           {isDuplicate ? (
             <CloseIcon />
           ) : isSuccess ? (
-            <Check16Icon />
+            <CheckIcon />
           ) : (
             <RightArrowIcon />
           )}
@@ -82,12 +141,12 @@ export default function EmailInput({
       {message ? (
         <p
           className={[
-            "font-S-500",
+            "font-XS-600 select-none",
             isDuplicate
-              ? "text-[#FC5A03]"
+              ? "text-brand-supplementary"
               : isSuccess
               ? "text-text-primary"
-              : "text-text-secondary",
+              : "text-brand-supplementary",
           ].join(" ")}
         >
           {message}

@@ -22,3 +22,7 @@ export { default as ShopIcon } from "./Shop.svg";
 export { default as VisaIcon } from "./Visa.svg";
 export { default as SmileIcon } from "./smile.svg";
 export { default as Check16Icon } from "./check16.svg";
+export { default as Check12Icon } from "./check12.svg";
+export { default as CheckIcon } from "./check.svg";
+export { default as RemoveIcon } from "./remove.svg";
+export { default as AddIcon } from "./add.svg";

@@ -61,6 +61,10 @@ export default function SearchResultOverlay({
     router.push(`/search?q=${encodeURIComponent(value)}`);
   };
 
+  const handleProductClick = () => {
+    onCloseOverlay();
+  };
+
   return (
     <>
       <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm " />
@@ -72,6 +76,7 @@ export default function SearchResultOverlay({
           products={products}
           onSuggestionClick={handleSuggestionSearch}
           onSearchSubmit={handleSearchSubmit}
+          onProductClick={handleProductClick}
         />
       </div>
     </>
