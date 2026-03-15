@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { useRouter } from "next/navigation";
-import SearchResultContent from "../Molecules/SearchResultContent";
+import SearchResultContent from "../molecules/SearchResultContainer";
 import { itemData } from "../../../data/ItemData";
 
 type Props = {

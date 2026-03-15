@@ -1,5 +1,5 @@
 import Link from "next/link";
-import NavButton from "../Atoms/NavButton";
+import NavButton from "../atoms/NavigationLink";
 
 type Props = {
   openMenu: string | null;

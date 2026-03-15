@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { itemData } from "@/data/ItemData";
-import ProductDetailsSection from "@/app/Components/Organism/ProductDetailsSection";
-import RelatedProducts from "@/app/Components/Organism/RelatedProducts";
+import ProductDetailsSection from "@/app/components/organisms/ProductPageDetails";
+import RelatedProducts from "@/app/components/organisms/ProductsRelated";
 
 type Props = {
   params: Promise<{

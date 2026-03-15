@@ -1,7 +1,7 @@
-import HeroSection from "../../Components/Organism/HeroSection";
-import ProductGrid from "../../Components/Organism/ProductGrid";
-import NewsletterSubscribe from "../../Components/Organism/NewsletterSubscribe";
-import ViewAllButton from "../../Components/Atoms/ViewAllButton";
+import HeroSection from "../../components/organisms/HeroSection";
+import ProductGrid from "../../components/organisms/ProductGrid";
+import NewsletterSubscribe from "../../components/organisms/NewsletterSubscribe";
+import ViewAllButton from "../../components/atoms/ViewAllButton";
 import { getStorageAsset } from "@/lib/storage";
 
 export default function HomePage() {

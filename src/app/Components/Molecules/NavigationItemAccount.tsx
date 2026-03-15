@@ -1,4 +1,4 @@
-import NavButton from "../Atoms/NavButton";
+import NavButton from "../atoms/NavigationLink";
 
 type Props = {
   onSignOut?: () => void;

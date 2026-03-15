@@ -2,7 +2,7 @@
 
 import React from "react";
 import { SortIcon } from "../../../../public/Icons";
-import RelevanceSort, { SortValue } from "./RelevanceSort";
+import RelevanceSort, { SortValue } from "./FilterRelevance";
 
 type Props = {
   value: SortValue;

@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import FilterSelectButton from "../Atoms/FilterSelectButton";
-import RadioOption from "../Atoms/RadioOption";
+import FilterSelectButton from "../atoms/FilterButton";
+import RadioOption from "../atoms/FilterRadioOption";
 
 export type SortValue = "relevance" | "price-low-high" | "price-high-low" | null;
 

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { ProductItem } from "@/data/ItemData";
-import QuantitySelector from "../Atoms/QuantitySelector";
+import QuantitySelector from "../atoms/QuantitySelector";
 import AddedToCartOverlay from "./AddedToCartOverlay";
 import { useCurrency } from "@/context/CurrencyContext";
 import styles from "../Molecules/Styles.module.css";

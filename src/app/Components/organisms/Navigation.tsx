@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Overlay from "../Atoms/Overlay";
-import NavLeft from "../Molecules/NavLeft";
-import NavRight from "../Molecules/NavRight";
-import SearchNavRow from "../Molecules/SearchNavRow";
-import AccountNavLeft from "../Molecules/AccountNavLeft";
+import Overlay from "../atoms/Overlay";
+import NavLeft from "../molecules/NavigationItemProductPages";
+import NavRight from "../molecules/NavigationItemIcons";
+import SearchNavRow from "../molecules/NavigationSearchMode";
+import AccountNavLeft from "../molecules/NavigationItemAccount";
 import { LogoIcon } from "../../../../public/Icons";
 import Link from "next/link";
 

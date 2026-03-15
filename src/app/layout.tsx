@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { CurrencyProvider } from "@/context/CurrencyContext";
-import NavigationBar from "@/app/Components/Organism/NavigationBar";
-import FooterBar from "@/app/Components/Organism/FooterBar";
+import NavigationBar from "@/app/components/organisms/Navigation";
+import FooterBar from "@/app/components/organisms/FooterContaienr";
 
 const sansFlex = localFont({
   src: [

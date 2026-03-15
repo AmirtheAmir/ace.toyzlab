@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import IconButton from "../Atoms/IconButton";
-import CurrencyNavButton from "../Atoms/CurrencyNavButton";
+import IconButton from "../atoms/NavigationIconButton";
+import CurrencyNavButton from "../atoms/CurrencyButton";
 import { CartIcon, PersonIcon, SearchIcon } from "../../../../public/Icons";
 import { CURRENCIES } from "../../../data/currencies";
 import { useCurrency } from "@/context/CurrencyContext";
 import styles from "./Styles.module.css";
-import FloatingSearchInputCurrency from "../Atoms/FloatingSeasrchInputCurrency";
+import FloatingSearchInputCurrency from "../atoms/CurrencySearchInput";
 
 type NavMode = "default" | "account" | "search";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import FooterLink from "../Atoms/FooterLink";
+import FooterLink from "../atoms/FooterLinkItem";
 
 const links = [
   "Return Policy",

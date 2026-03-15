@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
-import EmailInput from "../Atoms/EmailInput";
-import InstagramButton from "../Atoms/InstagramButton";
+import EmailInput from "../atoms/EmailInput";
+import InstagramButton from "../atoms/SocialIconButton";
 
 type SubmitStatus = "idle" | "typing" | "duplicate" | "success";
 

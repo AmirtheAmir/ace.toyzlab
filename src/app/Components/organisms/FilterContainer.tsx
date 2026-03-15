@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import LeftSideFilter from "../Molecules/LeftSideFilter";
-import RightSideSort from "../Molecules/RightSideSort";
-import { AvailabilityValue } from "../Molecules/AvailabilityFilter";
-import { PriceValue } from "../Molecules/PriceFilter";
-import { SortValue } from "../Molecules/RelevanceSort";
-import FilterChip from "../Atoms/FilterChip";
+import LeftSideFilter from "../molecules/FilterContainerAP";
+import RightSideSort from "../molecules/FilterContainerR";
+import { AvailabilityValue } from "../molecules/FilterAvailability";
+import { PriceValue } from "../molecules/FilterPrice";
+import { SortValue } from "../molecules/FilterRelevance";
+import FilterChip from "../atoms/FilterChip";
 
 type Props = {
   showPrice?: boolean;
@@ -54,7 +54,7 @@ export default function FilterBar({
   resultsCount,
 }: Props) {
   return (
-    <div className="flex flex-col py-6 select-none">
+    <div className="flex flex-col py-2 h-28 select-none">
       <div className="flex items-start justify-between">
         <LeftSideFilter
           showPrice={showPrice}

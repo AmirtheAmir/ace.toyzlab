@@ -2,8 +2,8 @@
 
 import React from "react";
 import { ProductItem } from "@/data/ItemData";
-import ProductGallery from "../Molecules/ProductGallery";
-import ProductInfo from "../Molecules/ProductInfo";
+import ProductGallery from "../molecules/ProductPagesSideGallery";
+import ProductInfo from "../molecules/ProductPageInformation";
 
 type Props = {
   product: ProductItem;

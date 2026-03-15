@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import CollectionPageView from "@/app/Components/Organism/CollectionPageView";
+import CollectionPageView from "@/app/components/organisms/CollectionPageContainer";
 import { itemData } from "@/data/ItemData";
 
 const validSlugs = [

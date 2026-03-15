@@ -1,4 +1,4 @@
-import SearchResultPage from "@/app/Pages/Search/SearchResultPage";
+import SearchResultPage from "@/app/search/SearchResultPage";
 
 type SearchPageProps = {
   searchParams: Promise<{

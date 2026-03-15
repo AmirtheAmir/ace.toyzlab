@@ -2,8 +2,8 @@
 
 import { RightArrowIcon } from "../../../../public/Icons";
 import { ProductItem } from "../../../data/ItemData";
-import SuggestionColumn from "../Atoms/SuggestionColumn";
-import ProductColumn from "../Atoms/ProductColumn";
+import SuggestionColumn from "../atoms/SearchOverlaySuggestion";
+import ProductColumn from "../atoms/SearchOverlayProducts";
 
 type Props = {
   query: string;

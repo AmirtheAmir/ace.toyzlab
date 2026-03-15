@@ -1,6 +1,6 @@
 import React from "react";
 import { itemData } from "@/data/ItemData";
-import ProductCard from "../Molecules/ProductCard";
+import ProductCard from "../molecules/ProductCard";
 
 type Props = {
   currentProductId: string;

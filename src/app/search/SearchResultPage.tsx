@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import FilterBar from "@/app/Components/Organism/FilterBar";
-import ProductCard from "@/app/Components/Molecules/ProductCard";
+import FilterBar from "@/app/components/organisms/FilterContainer";
+import ProductCard from "@/app/components/molecules/ProductCard";
 import { itemData } from "@/data/ItemData";
-import { AvailabilityValue } from "@/app/Components/Molecules/AvailabilityFilter";
-import { PriceValue } from "@/app/Components/Molecules/PriceFilter";
-import { SortValue } from "@/app/Components/Molecules/RelevanceSort";
+import { AvailabilityValue } from "@/app/components/molecules/FilterAvailability";
+import { PriceValue } from "@/app/components/molecules/FilterPrice";
+import { SortValue } from "@/app/components/molecules/FilterRelevance";
 
 type Props = {
   query: string;

@@ -1,6 +1,6 @@
 import React from "react";
-import FooterLinks from "../Molecules/FooterLinks";
-import FooterPayments from "../Molecules/FooterPayments";
+import FooterLinks from "../molecules/FooterPolicyLinks";
+import FooterPayments from "../molecules/FooterPaymentBadges";
 
 export default function FooterBar() {
   return (

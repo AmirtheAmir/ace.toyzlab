@@ -2,8 +2,8 @@
 
 import React from "react";
 import { FilterIcon } from "../../../../public/Icons";
-import AvailabilityFilter, { AvailabilityValue } from "./AvailabilityFilter";
-import PriceFilter, { PriceValue } from "../Molecules/PriceFilter";
+import AvailabilityFilter, { AvailabilityValue } from "./FilterAvailability";
+import PriceFilter, { PriceValue } from "./FilterPrice";
 
 type Props = {
   showPrice?: boolean;

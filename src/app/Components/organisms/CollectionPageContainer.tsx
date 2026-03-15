@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import ProductCard from "../Molecules/ProductCard";
-import FilterBar from "../Organism/FilterBar";
-import { AvailabilityValue } from "../Molecules/AvailabilityFilter";
-import { SortValue } from "../Molecules/RelevanceSort";
+import ProductCard from "../molecules/ProductCard";
+import FilterBar from "./FilterContainer";
+import { AvailabilityValue } from "../molecules/FilterAvailability";
+import { SortValue } from "../molecules/FilterRelevance";
 import { ProductItem } from "@/data/ItemData";
 
 type Props = {

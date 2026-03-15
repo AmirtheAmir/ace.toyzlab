@@ -1,5 +1,5 @@
 import React from "react";
-import PaymentCard from "../Atoms/PaymentCard";
+import PaymentCard from "../atoms/FooterPaymentBadge";
 import {
   AmericanIcon,
   AppleIcon,

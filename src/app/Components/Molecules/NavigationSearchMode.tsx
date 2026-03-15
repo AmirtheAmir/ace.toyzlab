@@ -2,10 +2,10 @@
 
 import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import FloatingSearchInput from "../Atoms/FloatingSearchInput";
-import IconButton from "../Atoms/IconButton";
-import CurrencyNavButton from "../Atoms/CurrencyNavButton";
-import SearchResultOverlay from "../Organism/SearchResultOverlay";
+import FloatingSearchInput from "../atoms/SearchInput";
+import IconButton from "../atoms/NavigationIconButton";
+import CurrencyNavButton from "../atoms/CurrencyButton";
+import SearchResultOverlay from "../organisms/SearchResultOverlay";
 import { CartIcon, CloseIcon, PersonIcon } from "../../../../public/Icons";
 import { CURRENCIES } from "../../../data/currencies";
 import { useCurrency } from "@/context/CurrencyContext";

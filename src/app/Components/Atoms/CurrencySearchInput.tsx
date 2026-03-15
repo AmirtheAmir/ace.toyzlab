@@ -1,5 +1,9 @@
 type Props = { label: string; value: string; onChange: (v: string) => void };
-export default function FloatingSearchInputCurrency({ label, value, onChange }: Props) {
+export default function FloatingSearchInputCurrency({
+  label,
+  value,
+  onChange,
+}: Props) {
   const active = value.length > 0;
   return (
     <div className="relative border border-border-secondary bg-bg-base h-10 px-3 flex items-center">

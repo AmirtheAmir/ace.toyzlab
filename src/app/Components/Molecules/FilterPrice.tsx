@@ -1,8 +1,8 @@
 ﻿"use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import FilterSelectButton from "../Atoms/FilterSelectButton";
-import NumberFilterInput from "../Atoms/NumberFilterInput";
+import FilterSelectButton from "../atoms/FilterButton";
+import NumberFilterInput from "../atoms/FilterPriceRangeInput";
 import { useCurrency } from "@/context/CurrencyContext";
 
 export type PriceValue = { from: string; to: string } | null;
