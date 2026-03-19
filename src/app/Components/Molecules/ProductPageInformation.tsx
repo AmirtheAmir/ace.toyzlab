@@ -5,7 +5,7 @@ import type { ProductItem } from "@/types/product";
 import QuantitySelector from "../atoms/QuantitySelector";
 import AddedToCartOverlay from "./AddedToCartOverlay";
 import { useCurrency } from "@/context/CurrencyContext";
-import styles from "../Molecules/Styles.module.css";
+import styles from "../molecules/Styles.module.css";
 import { addToCart, getCartItemCount } from "@/lib/cart";
 
 type Props = {
