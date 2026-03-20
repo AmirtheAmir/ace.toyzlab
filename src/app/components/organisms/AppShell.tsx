@@ -30,7 +30,7 @@ export default function AppShell({ children }: Props) {
         isPolicyPage ? "bg-brand-primary" : "bg-bg-base",
       ].join(" ")}
     >
-      <div className="max-w-7xl w-full min-h-screen flex flex-col gap-2">
+      <div className="max-w-7xl  w-full min-h-screen flex flex-col gap-2">
         <Navigation />
         <div className="flex-1">{children}</div>
         <FooterContaienr />

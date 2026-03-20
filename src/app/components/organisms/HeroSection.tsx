@@ -15,7 +15,7 @@ type Props = {
 
 export default function HeroSection({
   title = "FERRARI TESTAROSSA",
-  subtitle = "The Desert Rose Of All Cars",
+  subtitle = "The Desert Rose Of Ferrari",
   ctaLabel = "Check It Out",
   ctaHref = "/product/testarossa-ferrari-1984",
   imageSrc = "",
