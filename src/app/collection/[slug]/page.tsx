@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import CollectionPageContainer from "@/app/components/organisms/CollectionPageContainer";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import { mapProductRow } from "@/lib/productMapper";
 import type { ProductRow } from "@/types/product";
 
@@ -26,6 +26,11 @@ function isValidSlug(slug: string): slug is CollectionSlug {
 }
 
 export default async function CollectionPage({ params }: PageProps) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    notFound();
+  }
+
   const { slug } = await params;
 
   if (!isValidSlug(slug)) {

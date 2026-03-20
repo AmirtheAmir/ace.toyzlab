@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 
 const ALLOWED_TYPES = ["refund", "privacy", "shipping", "terms", "cookies"];
 
@@ -7,6 +7,14 @@ export async function GET(
   _request: Request,
   context: { params: Promise<{ type: string }> },
 ) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json(
+      { message: "Server is missing Supabase environment variables." },
+      { status: 500 },
+    );
+  }
+
   const { type } = await context.params;
 
   if (!ALLOWED_TYPES.includes(type)) {

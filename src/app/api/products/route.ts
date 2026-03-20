@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import { mapProductRow } from "@/lib/productMapper";
 import type { ProductRow } from "@/types/product";
 
 export async function GET() {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json(
+      { message: "Server is missing Supabase environment variables." },
+      { status: 500 }
+    );
+  }
+
   const { data, error } = await supabase
     .from("products")
     .select(`

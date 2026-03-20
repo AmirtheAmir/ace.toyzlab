@@ -1,4 +1,4 @@
-import { supabase } from "./supabase";
+import { getSupabase } from "./supabase";
 
 const PRODUCT_BUCKET = "Ace Images";
 const PRODUCT_FOLDER = "products";
@@ -8,6 +8,8 @@ const TRANSPARENT_PIXEL =
 export function getProductImageUrl(path?: string | null) {
   const safePath = typeof path === "string" ? path.trim() : "";
   if (!safePath) return TRANSPARENT_PIXEL;
+  const supabase = getSupabase();
+  if (!supabase) return TRANSPARENT_PIXEL;
 
   const normalizedPath = safePath.startsWith(`${PRODUCT_FOLDER}/`)
     ? safePath
@@ -23,6 +25,8 @@ export function getProductImageUrl(path?: string | null) {
 export function getStorageAsset(path?: string | null) {
   const safePath = typeof path === "string" ? path.trim() : "";
   if (!safePath) return TRANSPARENT_PIXEL;
+  const supabase = getSupabase();
+  if (!supabase) return TRANSPARENT_PIXEL;
 
   const { data } = supabase.storage
     .from(PRODUCT_BUCKET)

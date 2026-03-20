@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import ProductPageDetails from "@/app/components/organisms/ProductPageDetails";
 import ProductsRelated from "@/app/components/organisms/ProductsRelated";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import { mapProductRow } from "@/lib/productMapper";
 import type { ProductRow } from "@/types/product";
 
@@ -12,6 +12,11 @@ type Props = {
 };
 
 export default async function ProductPage({ params }: Props) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    notFound();
+  }
+
   const { productSlug } = await params;
 
   const { data, error } = await supabase

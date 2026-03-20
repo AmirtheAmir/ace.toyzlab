@@ -1,5 +1,5 @@
 import ProductCard from "../molecules/ProductCard";
-import { supabase } from "@/lib/supabase";
+import { getSupabase } from "@/lib/supabase";
 import { mapProductRow } from "@/lib/productMapper";
 import type { ProductRow } from "@/types/product";
 
@@ -12,6 +12,11 @@ function shuffleArray<T>(array: T[]) {
 }
 
 export default async function ProductsRelated({ currentProductId }: Props) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return null;
+  }
+
   const { data, error } = await supabase
     .from("products")
     .select(`
