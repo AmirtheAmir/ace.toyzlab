@@ -22,7 +22,7 @@ const sansFlex = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Ace Shop",
+  title: "Ace Toyz",
   description: "Your Exclusive Watch Boutique",
 };
 
