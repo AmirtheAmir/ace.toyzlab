@@ -7,19 +7,15 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import type { SupabaseClient, User } from "@supabase/supabase-js";
-import {
-  AddAddressIcon,
-  AustraliaIcon,
-  Close16Icon,
-  DeleteIcon,
-  DropDownIcon,
-  EditIcon,
-  FinlandIcon,
-} from "../../../../public/Icons";
 import { getSupabase } from "@/lib/supabase";
-import { useSearchParams } from "next/navigation";
+
+import OrdersOrganism from "@/app/components/organisms/OrdersOrganism";
+import ProfileOrganism from "@/app/components/organisms/ProfileOrganism";
+import AddressesOrganism from "@/app/components/organisms/AddressesOrganism";
+import ProfileModalOrganism from "@/app/components/organisms/ProfileModalOrganism";
+import AddressModalOrganism from "@/app/components/organisms/AddressModalOrganism";
 
 type AccountTab = "profile" | "orders";
 type CountryValue = "Finland" | "Australia";
@@ -127,21 +123,8 @@ function emptyAddressDraft(isDefault: boolean): AddressDraft {
   };
 }
 
-function CountryIcon({
-  country,
-  className,
-}: {
-  country: CountryValue;
-  className?: string;
-}) {
-  const Icon = country === "Australia" ? AustraliaIcon : FinlandIcon;
-
-  return <Icon className={className} />;
-}
-
 function getProfileName(profile: ProfileRow | null) {
   if (!profile) return "";
-
   return [profile.first_name ?? "", profile.last_name ?? ""].join(" ").trim();
 }
 
@@ -152,9 +135,7 @@ async function ensureProfileRow(supabase: SupabaseClient, user: User) {
     .eq("id", user.id)
     .maybeSingle();
 
-  if (fetchError) {
-    throw fetchError;
-  }
+  if (fetchError) throw fetchError;
 
   const userEmail = user.email ?? null;
 
@@ -177,10 +158,7 @@ async function ensureProfileRow(supabase: SupabaseClient, user: User) {
       .select(PROFILE_SELECT)
       .single();
 
-    if (insertError) {
-      throw insertError;
-    }
-
+    if (insertError) throw insertError;
     return insertedProfile as ProfileRow;
   }
 
@@ -193,9 +171,7 @@ async function ensureProfileRow(supabase: SupabaseClient, user: User) {
         : "";
 
     const fallbackName = metadataFirstName || inferFirstName(userEmail ?? "");
-    if (fallbackName) {
-      updates.first_name = fallbackName;
-    }
+    if (fallbackName) updates.first_name = fallbackName;
   }
 
   if (!existingProfile.email && userEmail) {
@@ -213,9 +189,7 @@ async function ensureProfileRow(supabase: SupabaseClient, user: User) {
     .select(PROFILE_SELECT)
     .single();
 
-  if (updateError) {
-    throw updateError;
-  }
+  if (updateError) throw updateError;
 
   return updatedProfile as ProfileRow;
 }
@@ -228,31 +202,24 @@ async function fetchAddresses(supabase: SupabaseClient, userId: string) {
     .order("is_default", { ascending: false })
     .order("created_at", { ascending: true });
 
-  if (error) {
-    throw error;
-  }
+  if (error) throw error;
 
   return (data ?? []) as AddressRow[];
 }
 
 export default function AccountPage() {
   const router = useRouter();
-
   const searchParams = useSearchParams();
 
   const activeTab: AccountTab =
     searchParams.get("tab") === "orders" ? "orders" : "profile";
-  const setActiveTab = (tab: AccountTab) => {
-    router.push(`/account?tab=${tab}`);
-  };
-  const [isBootstrapping, setIsBootstrapping] = useState(true);
 
+  const [isBootstrapping, setIsBootstrapping] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<ProfileRow | null>(null);
   const [addresses, setAddresses] = useState<AddressRow[]>([]);
-
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [, setErrorMessage] = useState<string | null>(null);
+  const [, setSuccessMessage] = useState<string | null>(null);
 
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [profileDraft, setProfileDraft] = useState<ProfileDraft>({
@@ -268,9 +235,7 @@ export default function AccountPage() {
     emptyAddressDraft(true),
   );
   const [isSavingAddress, setIsSavingAddress] = useState(false);
-  const [deletingAddressId, setDeletingAddressId] = useState<string | null>(
-    null,
-  );
+  const [deletingAddressId, setDeletingAddressId] = useState<string | null>(null);
 
   const loadAccountData = useCallback(async () => {
     const supabase = getSupabase();
@@ -287,9 +252,8 @@ export default function AccountPage() {
     try {
       const { data: sessionData, error: sessionError } =
         await supabase.auth.getSession();
-      if (sessionError) {
-        throw sessionError;
-      }
+
+      if (sessionError) throw sessionError;
 
       const session = sessionData.session;
       if (!session) {
@@ -329,15 +293,12 @@ export default function AccountPage() {
       }
     });
 
-    return () => {
-      subscription.unsubscribe();
-    };
+    return () => subscription.unsubscribe();
   }, [router]);
 
   const profileName = useMemo(() => {
     const name = getProfileName(profile);
     if (name) return name;
-
     return user?.email ? inferFirstName(user.email) : "";
   }, [profile, user]);
 
@@ -348,11 +309,13 @@ export default function AccountPage() {
 
     setErrorMessage(null);
     setSuccessMessage(null);
+
     setProfileDraft({
       first_name: profile?.first_name ?? profileName,
       last_name: profile?.last_name ?? "",
       email: profileEmail,
     });
+
     setIsProfileModalOpen(true);
   };
 
@@ -375,6 +338,7 @@ export default function AccountPage() {
     setErrorMessage(null);
     setSuccessMessage(null);
     setEditingAddress(address);
+
     setAddressDraft({
       country,
       first_name: address.first_name ?? "",
@@ -387,26 +351,15 @@ export default function AccountPage() {
       phone_local: getLocalPhone(country, address.phone_number),
       is_default: address.is_default,
     });
+
     setIsAddressModalOpen(true);
   };
 
-  const onSignOut = async () => {
-    const supabase = getSupabase();
-    if (!supabase) {
-      setErrorMessage("Supabase client is not configured.");
-      return;
-    }
+  const closeProfileModal = () => setIsProfileModalOpen(false);
 
-    setErrorMessage(null);
-    setSuccessMessage(null);
-
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      setErrorMessage(error.message);
-      return;
-    }
-
-    router.replace("/auth");
+  const closeAddressModal = () => {
+    setIsAddressModalOpen(false);
+    setEditingAddress(null);
   };
 
   const onSaveProfile = async (event: FormEvent<HTMLFormElement>) => {
@@ -446,13 +399,8 @@ export default function AccountPage() {
       const isEmailChanged = currentUserEmail !== email;
 
       if (isEmailChanged) {
-        const { error: updateAuthError } = await supabase.auth.updateUser({
-          email,
-        });
-
-        if (updateAuthError) {
-          throw updateAuthError;
-        }
+        const { error: updateAuthError } = await supabase.auth.updateUser({ email });
+        if (updateAuthError) throw updateAuthError;
       }
 
       const { data: updatedProfile, error: updateProfileError } = await supabase
@@ -467,9 +415,7 @@ export default function AccountPage() {
         .select(PROFILE_SELECT)
         .single();
 
-      if (updateProfileError) {
-        throw updateProfileError;
-      }
+      if (updateProfileError) throw updateProfileError;
 
       setProfile(updatedProfile as ProfileRow);
       setIsProfileModalOpen(false);
@@ -547,9 +493,7 @@ export default function AccountPage() {
         }
 
         const { error: resetDefaultError } = await resetQuery;
-        if (resetDefaultError) {
-          throw resetDefaultError;
-        }
+        if (resetDefaultError) throw resetDefaultError;
       }
 
       const payload = {
@@ -575,9 +519,7 @@ export default function AccountPage() {
           .eq("id", editingAddress.id)
           .eq("user_id", user.id);
 
-        if (updateAddressError) {
-          throw updateAddressError;
-        }
+        if (updateAddressError) throw updateAddressError;
       } else {
         const { error: insertAddressError } = await supabase
           .from("addresses")
@@ -587,9 +529,7 @@ export default function AccountPage() {
             ...payload,
           });
 
-        if (insertAddressError) {
-          throw insertAddressError;
-        }
+        if (insertAddressError) throw insertAddressError;
       }
 
       const refreshedAddresses = await fetchAddresses(supabase, user.id);
@@ -629,9 +569,7 @@ export default function AccountPage() {
         .eq("id", address.id)
         .eq("user_id", user.id);
 
-      if (deleteAddressError) {
-        throw deleteAddressError;
-      }
+      if (deleteAddressError) throw deleteAddressError;
 
       let refreshedAddresses = await fetchAddresses(supabase, user.id);
 
@@ -650,9 +588,7 @@ export default function AccountPage() {
           .eq("id", fallbackAddress.id)
           .eq("user_id", user.id);
 
-        if (fallbackDefaultError) {
-          throw fallbackDefaultError;
-        }
+        if (fallbackDefaultError) throw fallbackDefaultError;
 
         refreshedAddresses = await fetchAddresses(supabase, user.id);
       }
@@ -670,497 +606,66 @@ export default function AccountPage() {
 
   if (isBootstrapping) {
     return (
-      <main className="">
-        <p className="font-M-500 text-text-secondary">
-          Loading your account...
-        </p>
+      <main>
+        <p className="font-M-500 text-text-secondary">Loading your account...</p>
       </main>
     );
   }
 
   return (
     <>
-      <main className="px-4 py-3 md:px-8">
-        <section className="min-h-[60vh] py-3">
-          <div className="inline-flex ring ring-border-primary">
-            <button
-              type="button"
-              onClick={() => setActiveTab("orders")}
-              className={[
-                "px-5 py-3 font-M-500 ringed-right transition-colors duration-200",
-                activeTab === "orders"
-                  ? "text-text-primary underline underline-offset-4"
-                  : "text-text-secondary hover:text-text-primary",
-              ].join(" ")}
-            >
-              Orders
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setActiveTab("profile")}
-              className={[
-                "px-5 py-3 font-M-500 ringed-right transition-colors duration-200",
-                activeTab === "profile"
-                  ? "text-text-primary underline underline-offset-4"
-                  : "text-text-secondary hover:text-text-primary",
-              ].join(" ")}
-            >
-              Profile
-            </button>
-
-            <button
-              type="button"
-              onClick={onSignOut}
-              className="px-5 py-3 font-M-500 text-text-primary transition-colors duration-200 hover:text-brand-primary"
-            >
-              Sign Out
-            </button>
-          </div>
-
-          {errorMessage ? (
-            <p className="mt-4 font-M-500 text-brand-primary">{errorMessage}</p>
-          ) : null}
-
-          {successMessage ? (
-            <p className="mt-4 font-M-500 text-text-secondary">
-              {successMessage}
-            </p>
-          ) : null}
+      <main className="py-6 ">
+        <section className="min-h-[40vh] py-4">
 
           {activeTab === "orders" ? (
-            <div className="mt-8 max-w-5xl bg-bg-surface p-5 ring ring-border-primary">
-              <h2 className="font-L-600 text-text-primary">Orders</h2>
-              <p className="mt-2 font-M-500 text-text-secondary">
-                No orders yet.
-              </p>
-            </div>
+            <OrdersOrganism />
           ) : (
-            <div className="mt-8 grid max-w-5xl gap-8 lg:grid-cols-2">
-              <section className="flex flex-col gap-3">
-                <div className="flex items-center gap-2">
-                  <h2 className="font-L-600 text-text-primary">Profile</h2>
+            <div className="grid  w-full gap-4 lg:grid-cols-2">
+              <ProfileOrganism
+                profileName={profileName}
+                profileEmail={profileEmail}
+                onEdit={openProfileEditor}
+              />
 
-                  <button
-                    type="button"
-                    aria-label="Edit profile"
-                    onClick={openProfileEditor}
-                    className="text-brand-primary transition-opacity duration-200 hover:opacity-80"
-                  >
-                    <EditIcon className="h-4 w-4" />
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-[64px_1fr] gap-y-2">
-                  <span className="font-M-500 text-text-tertiary">Name</span>
-                  <span className="font-M-500 text-text-primary">
-                    {profileName || "-"}
-                  </span>
-
-                  <span className="font-M-500 text-text-tertiary">Email</span>
-                  <span className="font-M-500 text-text-primary">
-                    {profileEmail || "-"}
-                  </span>
-                </div>
-              </section>
-
-              <section className="flex flex-col gap-3">
-                <div className="flex items-center gap-2">
-                  <h2 className="font-L-600 text-text-primary">Addresses</h2>
-
-                  <button
-                    type="button"
-                    aria-label="Add address"
-                    onClick={openAddAddressModal}
-                    disabled={addresses.length >= MAX_ADDRESSES}
-                    className="text-brand-primary transition-opacity duration-200 hover:opacity-80 disabled:cursor-not-allowed disabled:text-text-tertiary"
-                  >
-                    <AddAddressIcon className="h-4 w-4" />
-                  </button>
-                </div>
-
-                {addresses.length === 0 ? (
-                  <p className="font-M-500 text-text-tertiary">
-                    No addresses saved
-                  </p>
-                ) : (
-                  <div className="flex flex-col gap-3">
-                    {addresses.map((address) => {
-                      const country = normalizeCountry(address.country);
-
-                      return (
-                        <article
-                          key={address.id}
-                          className="bg-bg-surface p-3 ring ring-border-primary"
-                        >
-                          <div className="flex items-start justify-between gap-4">
-                            <div className="min-w-0">
-                              <div className="flex items-center gap-2">
-                                <CountryIcon
-                                  country={country}
-                                  className="h-4 w-4"
-                                />
-                                <span className="font-M-600 text-text-primary">
-                                  {country}
-                                </span>
-                                {address.is_default ? (
-                                  <span className="font-XS-600 uppercase tracking-wide text-brand-primary">
-                                    Default
-                                  </span>
-                                ) : null}
-                              </div>
-
-                              <p className="mt-1 font-M-500 text-text-primary">
-                                {address.first_name} {address.last_name}
-                              </p>
-                              <p className="font-M-500 text-text-secondary">
-                                {address.address_line_1}
-                              </p>
-                              {address.apartment ? (
-                                <p className="font-M-500 text-text-secondary">
-                                  {address.apartment}
-                                </p>
-                              ) : null}
-                              <p className="font-M-500 text-text-secondary">
-                                {address.city}, {address.province}{" "}
-                                {address.postal_code}
-                              </p>
-                              <p className="font-M-500 text-text-secondary">
-                                {address.phone_number}
-                              </p>
-                            </div>
-
-                            <div className="flex items-center gap-2">
-                              <button
-                                type="button"
-                                aria-label="Edit address"
-                                onClick={() => openEditAddressModal(address)}
-                                className="text-brand-primary transition-opacity duration-200 hover:opacity-80"
-                              >
-                                <EditIcon className="h-4 w-4" />
-                              </button>
-
-                              <button
-                                type="button"
-                                aria-label="Delete address"
-                                disabled={deletingAddressId === address.id}
-                                onClick={() => onDeleteAddress(address)}
-                                className="text-brand-primary transition-opacity duration-200 hover:opacity-80 disabled:cursor-not-allowed disabled:text-text-tertiary"
-                              >
-                                <DeleteIcon className="h-4 w-4" />
-                              </button>
-                            </div>
-                          </div>
-                        </article>
-                      );
-                    })}
-                  </div>
-                )}
-              </section>
+              <AddressesOrganism
+                addresses={addresses}
+                maxReached={addresses.length >= MAX_ADDRESSES}
+                onAdd={openAddAddressModal}
+                onEdit={openEditAddressModal}
+              />
             </div>
           )}
         </section>
       </main>
 
-      {isProfileModalOpen ? (
-        <div className="fixed inset-0 z-70 flex items-center justify-center bg-black/20 px-4 backdrop-blur-[2px]">
-          <div className="w-full max-w-[560px] bg-bg-base p-3 ring ring-border-primary">
-            <div className="flex items-center justify-between gap-2">
-              <h3 className="font-L-600 text-text-primary">
-                Edit Your Profile
-              </h3>
+      <ProfileModalOrganism
+        open={isProfileModalOpen}
+        value={profileDraft}
+        onChange={setProfileDraft}
+        onClose={closeProfileModal}
+        onSubmit={onSaveProfile}
+        isSaving={isSavingProfile}
+      />
 
-              <button
-                type="button"
-                onClick={() => setIsProfileModalOpen(false)}
-                aria-label="Close profile modal"
-                className="text-text-tertiary transition-colors duration-200 hover:text-text-primary"
-              >
-                <Close16Icon className="h-4 w-4" />
-              </button>
-            </div>
-
-            <form onSubmit={onSaveProfile} className="mt-3 flex flex-col gap-2">
-              <div className="grid gap-2 sm:grid-cols-2">
-                <input
-                  type="text"
-                  autoComplete="given-name"
-                  value={profileDraft.first_name}
-                  onChange={(event) =>
-                    setProfileDraft((prev) => ({
-                      ...prev,
-                      first_name: event.target.value,
-                    }))
-                  }
-                  placeholder="First name"
-                  className="w-full bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary ring ring-border-primary focus:outline-none"
-                />
-
-                <input
-                  type="text"
-                  autoComplete="family-name"
-                  value={profileDraft.last_name}
-                  onChange={(event) =>
-                    setProfileDraft((prev) => ({
-                      ...prev,
-                      last_name: event.target.value,
-                    }))
-                  }
-                  placeholder="Last name (optional)"
-                  className="w-full bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary ring ring-border-primary focus:outline-none"
-                />
-              </div>
-
-              <input
-                type="email"
-                autoComplete="email"
-                value={profileDraft.email}
-                onChange={(event) =>
-                  setProfileDraft((prev) => ({
-                    ...prev,
-                    email: event.target.value,
-                  }))
-                }
-                placeholder="Email"
-                className="w-full bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary ring ring-border-primary focus:outline-none"
-              />
-
-              <div className="mt-2 grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setIsProfileModalOpen(false)}
-                  className="bg-bg-base px-4 py-2.5 font-M-500 text-text-primary ring ring-border-primary transition-colors duration-200 hover:bg-bg-hover"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  type="submit"
-                  disabled={isSavingProfile}
-                  className="bg-bg-base px-4 py-2.5 font-M-600 text-text-primary ring ring-border-primary transition-colors duration-200 hover:bg-bg-hover disabled:cursor-not-allowed disabled:text-text-tertiary"
-                >
-                  {isSavingProfile ? "Saving..." : "Save"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      ) : null}
-
-      {isAddressModalOpen ? (
-        <div className="fixed inset-0 z-70 flex items-center justify-center bg-black/20 px-4 backdrop-blur-[2px]">
-          <div className="w-full max-w-[560px] bg-bg-base p-3 ring ring-border-primary">
-            <div className="flex items-center justify-between gap-2">
-              <h3 className="font-L-600 text-text-primary">
-                {editingAddress ? "Edit Your Address" : "Add Your Address"}
-              </h3>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setIsAddressModalOpen(false);
-                  setEditingAddress(null);
-                }}
-                aria-label="Close address modal"
-                className="text-text-tertiary transition-colors duration-200 hover:text-text-primary"
-              >
-                <Close16Icon className="h-4 w-4" />
-              </button>
-            </div>
-
-            <form onSubmit={onSaveAddress} className="mt-3 flex flex-col gap-2">
-              <div className="relative">
-                <CountryIcon
-                  country={addressDraft.country}
-                  className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2"
-                />
-
-                <select
-                  value={addressDraft.country}
-                  onChange={(event) =>
-                    setAddressDraft((prev) => ({
-                      ...prev,
-                      country: normalizeCountry(event.target.value),
-                    }))
-                  }
-                  className="w-full appearance-none bg-bg-base py-2.5 pl-9 pr-10 font-M-500 text-text-primary ring ring-border-primary focus:outline-none"
-                >
-                  <option value="Finland">Finland</option>
-                  <option value="Australia">Australia</option>
-                </select>
-
-                <DropDownIcon className="pointer-events-none absolute right-3 top-1/2 h-3 w-3 -translate-y-1/2 text-text-secondary" />
-              </div>
-
-              <div className="grid gap-2 sm:grid-cols-2">
-                <input
-                  type="text"
-                  autoComplete="shipping given-name"
-                  value={addressDraft.first_name}
-                  onChange={(event) =>
-                    setAddressDraft((prev) => ({
-                      ...prev,
-                      first_name: event.target.value,
-                    }))
-                  }
-                  placeholder="First name"
-                  className="w-full bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary ring ring-border-primary focus:outline-none"
-                />
-
-                <input
-                  type="text"
-                  autoComplete="shipping family-name"
-                  value={addressDraft.last_name}
-                  onChange={(event) =>
-                    setAddressDraft((prev) => ({
-                      ...prev,
-                      last_name: event.target.value,
-                    }))
-                  }
-                  placeholder="Last name"
-                  className="w-full bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary ring ring-border-primary focus:outline-none"
-                />
-              </div>
-
-              <input
-                type="text"
-                autoComplete="shipping address-line1"
-                value={addressDraft.address_line_1}
-                onChange={(event) =>
-                  setAddressDraft((prev) => ({
-                    ...prev,
-                    address_line_1: event.target.value,
-                  }))
-                }
-                placeholder="Address"
-                className="w-full bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary ring ring-border-primary focus:outline-none"
-              />
-
-              <input
-                type="text"
-                autoComplete="shipping address-line2"
-                value={addressDraft.apartment}
-                onChange={(event) =>
-                  setAddressDraft((prev) => ({
-                    ...prev,
-                    apartment: event.target.value,
-                  }))
-                }
-                placeholder="Apartment, Suite, etc"
-                className="w-full bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary ring ring-border-primary focus:outline-none"
-              />
-
-              <div className="grid gap-2 sm:grid-cols-3">
-                <input
-                  type="text"
-                  autoComplete="shipping address-level2"
-                  value={addressDraft.city}
-                  onChange={(event) =>
-                    setAddressDraft((prev) => ({
-                      ...prev,
-                      city: event.target.value,
-                    }))
-                  }
-                  placeholder="City"
-                  className="w-full bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary ring ring-border-primary focus:outline-none"
-                />
-
-                <input
-                  type="text"
-                  autoComplete="shipping address-level1"
-                  value={addressDraft.province}
-                  onChange={(event) =>
-                    setAddressDraft((prev) => ({
-                      ...prev,
-                      province: event.target.value,
-                    }))
-                  }
-                  placeholder="Province"
-                  className="w-full bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary ring ring-border-primary focus:outline-none"
-                />
-
-                <input
-                  type="text"
-                  autoComplete="shipping postal-code"
-                  value={addressDraft.postal_code}
-                  onChange={(event) =>
-                    setAddressDraft((prev) => ({
-                      ...prev,
-                      postal_code: event.target.value,
-                    }))
-                  }
-                  placeholder="Postal code"
-                  className="w-full bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary ring ring-border-primary focus:outline-none"
-                />
-              </div>
-
-              <div className="flex items-center bg-bg-base ring ring-border-primary">
-                <span className="px-3 font-M-500 text-text-tertiary">
-                  {getCountryPrefix(addressDraft.country)}
-                </span>
-
-                <input
-                  type="tel"
-                  autoComplete="shipping tel"
-                  value={addressDraft.phone_local}
-                  onChange={(event) =>
-                    setAddressDraft((prev) => ({
-                      ...prev,
-                      phone_local: event.target.value,
-                    }))
-                  }
-                  placeholder="Phone number"
-                  className="min-w-0 flex-1 bg-bg-base px-3 py-2.5 font-M-500 text-text-primary placeholder:text-text-tertiary focus:outline-none"
-                />
-
-                <div className="flex items-center gap-1 border-l border-border-primary px-3 text-text-secondary">
-                  <CountryIcon
-                    country={addressDraft.country}
-                    className="h-4 w-4"
-                  />
-                  <DropDownIcon className="h-3 w-3" />
-                </div>
-              </div>
-
-              <label className="mt-1 flex items-center gap-2 font-M-500 text-text-primary">
-                <input
-                  type="checkbox"
-                  checked={addressDraft.is_default}
-                  onChange={(event) =>
-                    setAddressDraft((prev) => ({
-                      ...prev,
-                      is_default: event.target.checked,
-                    }))
-                  }
-                  className="h-4 w-4 accent-text-primary"
-                />
-                This is my default address
-              </label>
-
-              <div className="mt-2 grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsAddressModalOpen(false);
-                    setEditingAddress(null);
-                  }}
-                  className="bg-bg-base px-4 py-2.5 font-M-500 text-text-primary ring ring-border-primary transition-colors duration-200 hover:bg-bg-hover"
-                >
-                  Cancel
-                </button>
-
-                <button
-                  type="submit"
-                  disabled={isSavingAddress}
-                  className="bg-bg-base px-4 py-2.5 font-M-600 text-text-primary ring ring-border-primary transition-colors duration-200 hover:bg-bg-hover disabled:cursor-not-allowed disabled:text-text-tertiary"
-                >
-                  {isSavingAddress ? "Saving..." : "Save"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      ) : null}
+      <AddressModalOrganism
+        open={isAddressModalOpen}
+        editing={!!editingAddress}
+        value={addressDraft}
+        onChange={setAddressDraft}
+        onClose={closeAddressModal}
+        onSubmit={onSaveAddress}
+        onDelete={
+          editingAddress
+            ? () => {
+                void onDeleteAddress(editingAddress);
+                closeAddressModal();
+              }
+            : undefined
+        }
+        isSaving={isSavingAddress}
+        isDeleting={!!editingAddress && deletingAddressId === editingAddress.id}
+        getCountryPrefix={getCountryPrefix}
+      />
     </>
   );
 }

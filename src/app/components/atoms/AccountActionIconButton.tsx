@@ -17,7 +17,7 @@ export default function AccountActionIconButton({
       aria-label={label}
       onClick={onClick}
       disabled={disabled}
-      className="text-brand-primary transition-opacity duration-200 hover:opacity-80 disabled:cursor-not-allowed disabled:text-text-tertiary"
+      className="text-brand-primary hover:text-brand-secondary transition-all duration-300 disabled:cursor-not-allowed disabled:text-text-tertiary"
     >
       {children}
     </button>

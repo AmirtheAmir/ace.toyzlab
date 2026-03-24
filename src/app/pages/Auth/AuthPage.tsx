@@ -211,7 +211,7 @@ export default function AuthPage() {
     }
 
     const token = otpCode.replace(/\D/g, "");
-    if (token.length !== 6) {
+    if (token.length !== 8) {
       setErrorMessage("Please enter the 6-digit code.");
       return;
     }
@@ -373,7 +373,7 @@ export default function AuthPage() {
               onChange={(event) => {
                 const numeric = event.target.value
                   .replace(/\D/g, "")
-                  .slice(0, 6);
+                  .slice(0, 8);
                 setOtpCode(numeric);
               }}
               placeholder="6 digit code"

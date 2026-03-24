@@ -21,22 +21,18 @@ type AddressRow = {
 type Props = {
   addresses: AddressRow[];
   maxReached: boolean;
-  deletingAddressId: string | null;
   onAdd: () => void;
   onEdit: (address: AddressRow) => void;
-  onDelete: (address: AddressRow) => void;
 };
 
 export default function AddressesOrganism({
   addresses,
   maxReached,
-  deletingAddressId,
   onAdd,
   onEdit,
-  onDelete,
 }: Props) {
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-4">
       <AccountSectionTitle
         title="Addresses"
         action={
@@ -45,7 +41,7 @@ export default function AddressesOrganism({
             onClick={onAdd}
             disabled={maxReached}
           >
-            <AddAddressIcon className="h-4 w-4" />
+            <AddAddressIcon className="" />
           </AccountActionIconButton>
         }
       />
@@ -53,14 +49,12 @@ export default function AddressesOrganism({
       {addresses.length === 0 ? (
         <p className="font-M-500 text-text-tertiary">No addresses saved</p>
       ) : (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
           {addresses.map((address) => (
             <AddressCard
               key={address.id}
               address={address}
-              deleting={deletingAddressId === address.id}
               onEdit={() => onEdit(address)}
-              onDelete={() => onDelete(address)}
             />
           ))}
         </div>

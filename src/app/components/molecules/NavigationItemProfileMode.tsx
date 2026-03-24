@@ -12,15 +12,17 @@ export default function NavigationItemProfileMode({
   onSignOut,
 }: Props) {
   return (
-    <div className="flex ring ring-border-primary">
+    <div className="flex ">
       <button
         type="button"
         onClick={() => onSelectTab("orders")}
         className={[
-          "px-5 py-3 font-M-500 ringed-right transition-colors duration-200",
+          "py-4 px-6 border bg-bg-base border-none ringed-right ",
+          "flex hover:cursor-pointer select-none items-center gap-2",
+          "font-S-500 text-text-primary",
           activeTab === "orders"
             ? "text-text-primary underline underline-offset-4"
-            : "text-text-secondary hover:text-text-primary",
+            : "text-text-primary hover:text-text-primary",
         ].join(" ")}
       >
         Orders
@@ -30,10 +32,12 @@ export default function NavigationItemProfileMode({
         type="button"
         onClick={() => onSelectTab("profile")}
         className={[
-          "px-5 py-3 font-M-500 ringed-right transition-colors duration-200",
+          "py-4 px-6 border bg-bg-base border-none ringed-right ",
+          "flex hover:cursor-pointer select-none items-center gap-2",
+          "font-S-500 text-text-primary",
           activeTab === "profile"
             ? "text-text-primary underline underline-offset-4"
-            : "text-text-secondary hover:text-text-primary",
+            : "text-text-primary hover:text-text-primary",
         ].join(" ")}
       >
         Profile
@@ -42,7 +46,11 @@ export default function NavigationItemProfileMode({
       <button
         type="button"
         onClick={onSignOut}
-        className="px-5 py-3 font-M-500 text-text-primary transition-colors duration-200 hover:text-brand-primary"
+        className={[
+          "py-4 px-6 border bg-bg-base border-none ringed-right ",
+          "flex hover:cursor-pointer select-none items-center gap-2",
+          "font-S-500 text-text-primary hover:text-text-inverted hover:bg-bg-inverted transition-colors duration-300 ease-in",
+        ].join(" ")}
       >
         Sign Out
       </button>

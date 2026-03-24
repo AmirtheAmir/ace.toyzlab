@@ -1,6 +1,5 @@
-import { DeleteIcon, EditIcon } from "../../../../public/Icons";
+import { EditAddressIcon, AustraliaIcon, FinlandIcon } from "../../../../public/Icons";
 import AccountActionIconButton from "../atoms/AccountActionIconButton";
-import { AustraliaIcon, FinlandIcon } from "../../../../public/Icons";
 
 type CountryValue = "Finland" | "Australia";
 
@@ -25,62 +24,57 @@ function normalizeCountry(value: string | null | undefined): CountryValue {
 
 function CountryIcon({ country }: { country: CountryValue }) {
   const Icon = country === "Australia" ? AustraliaIcon : FinlandIcon;
-  return <Icon className="h-4 w-4" />;
+
+  return <Icon className="" />;
 }
 
 type Props = {
   address: AddressRow;
-  deleting: boolean;
   onEdit: () => void;
-  onDelete: () => void;
 };
 
-export default function AddressCard({
-  address,
-  deleting,
-  onEdit,
-  onDelete,
-}: Props) {
+export default function AddressCard({ address, onEdit }: Props) {
   const country = normalizeCountry(address.country);
 
   return (
-    <article className="bg-bg-surface p-3 ring ring-border-primary">
+    <article className="bg-bg-surface p-4 ring ring-border-primary ">
       <div className="flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <div className="flex items-center gap-2">
-            <CountryIcon country={country} />
-            <span className="font-M-600 text-text-primary">{country}</span>
+        <div className="min-w-0 flex flex-col gap-4">
+          <div className="flex items-center">
             {address.is_default ? (
-              <span className="font-XS-600 uppercase tracking-wide text-brand-primary">
-                Default
+              <span className="font-M-500 uppercase text-text-secondary">
+                Default Address
               </span>
             ) : null}
           </div>
 
-          <p className="mt-1 font-M-500 text-text-primary">
-            {address.first_name} {address.last_name}
-          </p>
-          <p className="font-M-500 text-text-secondary">{address.address_line_1}</p>
-          {address.apartment ? (
-            <p className="font-M-500 text-text-secondary">{address.apartment}</p>
-          ) : null}
-          <p className="font-M-500 text-text-secondary">
-            {address.city}, {address.province} {address.postal_code}
-          </p>
-          <p className="font-M-500 text-text-secondary">{address.phone_number}</p>
+          <div className="flex flex-col gap-1">
+            <p className="font-M-500 text-text-primary">
+              {address.first_name} {address.last_name}
+            </p>
+
+            <p className="font-M-500 text-text-primary">
+              {address.address_line_1}
+            </p>
+
+            {address.apartment ? (
+              <p className="font-M-500 text-text-primary">{address.apartment}</p>
+            ) : null}
+
+            <div className="flex flex-row items-center gap-2">
+              <CountryIcon country={country} />
+              <p className="font-M-500 text-text-primary">
+                {address.city}, {address.province} {address.postal_code}
+              </p>
+            </div>
+
+            <p className="font-M-500 text-text-primary">{address.phone_number}</p>
+          </div>
         </div>
 
         <div className="flex items-center gap-2">
           <AccountActionIconButton label="Edit address" onClick={onEdit}>
-            <EditIcon className="h-4 w-4" />
-          </AccountActionIconButton>
-
-          <AccountActionIconButton
-            label="Delete address"
-            onClick={onDelete}
-            disabled={deleting}
-          >
-            <DeleteIcon className="h-4 w-4" />
+            <EditAddressIcon className="" />
           </AccountActionIconButton>
         </div>
       </div>

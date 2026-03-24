@@ -5,9 +5,9 @@ type Props = {
 
 export default function OrdersEmptyState({ title, subtitle }: Props) {
   return (
-    <div className="bg-bg-surface p-5 ring ring-border-primary">
+    <div className="flex flex-col gap-2">
       <h2 className="font-L-600 text-text-primary">{title}</h2>
-      <p className="mt-2 font-M-500 text-text-secondary">{subtitle}</p>
+      <p className="font-S-500 text-text-secondary">{subtitle}</p>
     </div>
   );
 }

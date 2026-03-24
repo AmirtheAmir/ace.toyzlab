@@ -15,12 +15,12 @@ export default function ProfileOrganism({
   onEdit,
 }: Props) {
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-4">
       <AccountSectionTitle
         title="Profile"
         action={
           <AccountActionIconButton label="Edit profile" onClick={onEdit}>
-            <EditIcon className="h-4 w-4" />
+            <EditIcon className="hover:cursor-pointer hover:text-brand-secondary transition-all duration-300" />
           </AccountActionIconButton>
         }
       />

@@ -20,6 +20,7 @@ export { default as RemoveIcon } from "./remove.svg";
 export { default as AddIcon } from "./add.svg";
 export { default as DeleteIcon } from "./delete.svg";
 export { default as EditIcon } from "./edit.svg";
+export { default as EditAddressIcon } from "./editaddress.svg";
 export { default as AddAddressIcon } from "./add_address.svg";
 export { default as FinlandIcon } from "./finland.svg";
 export { default as AustraliaIcon } from "./australia.svg";

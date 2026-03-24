@@ -2,10 +2,10 @@ import OrdersEmptyState from "../molecules/OrdersEmptyState";
 
 export default function OrdersOrganism() {
   return (
-    <section className="mt-8 max-w-5xl">
+    <section className="w-full ">
       <OrdersEmptyState
         title="Orders"
-        subtitle="No orders yet."
+        subtitle="No orders so far recorded"
       />
     </section>
   );
