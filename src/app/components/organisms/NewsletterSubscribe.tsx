@@ -71,7 +71,7 @@ export default function NewsletterSubscribe() {
   }, []);
 
   return (
-    <section className="w-full py-12">
+    <section className="w-full py-8 sm:py-12">
       <div className="mx-auto flex items-start flex-col gap-4">
         <div className="flex flex-col">
           <h3 className="font-L-500 text-text-primary">
@@ -79,7 +79,7 @@ export default function NewsletterSubscribe() {
           </h3>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-between w-full">
+        <div className="flex flex-col sm:flex-row gap-6 justify-between w-full">
           <EmailInput
             value={email}
             onChange={handleChange}

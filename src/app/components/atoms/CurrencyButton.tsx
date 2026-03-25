@@ -25,7 +25,7 @@ export default function CurrencyButton({
         "  bg-bg-base border-none select-none hover:cursor-pointer flex justify-center ",
         "flex items-center gap-2 ringed-left",
         "font-S-500 text-text-primary",
-        "py-4 px-4 sm:px-6  ",
+        "py-4 pr-2 pl-4 sm:pl-6 sm:pr-4 ",
         active
           ? "underline underline-offset-4"
           : "hover:underline hover:underline-offset-4",

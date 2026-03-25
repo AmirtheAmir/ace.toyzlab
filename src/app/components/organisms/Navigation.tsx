@@ -38,7 +38,18 @@ export default function Navigation() {
   const mobileSubmenuOpen = openMenu?.startsWith(MOBILE_SUBMENU_PREFIX)
     ? openMenu.slice(MOBILE_SUBMENU_PREFIX.length)
     : null;
-  const showOverlay = !!openMenu;
+  const isDesktopOverlayMenuOpen =
+    openMenu === "collectors" || openMenu === "motorsports" || openMenu === "currency";
+  const isMobileOverlayMenuOpen = isMobileMenuOpen || openMenu === "currency";
+  const showOverlay = isMobileNav ? isMobileOverlayMenuOpen : isDesktopOverlayMenuOpen;
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setOpenMenu(null);
+    }, 0);
+
+    return () => window.clearTimeout(timeout);
+  }, [pathname, isMobileNav]);
 
   useEffect(() => {
     function onDown(e: MouseEvent) {

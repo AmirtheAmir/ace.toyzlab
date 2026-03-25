@@ -26,7 +26,7 @@ export default function NavigationLink({
         "flex hover:cursor-pointer select-none items-center gap-2",
         "font-S-500 text-text-primary",
           exclusive ? "hover:bg-brand-supplement-primary transition-colors duration-300 ease-in" : "",
-        hasDropdown ? "py-4 pl-6 pr-4" : "py-4 px-6",
+        hasDropdown ? "py-4 pl-4 pr-2 sm:pl-6 sm:pr-4" : "py-4 sm:px-6 px-4",
         active
           ? "underline underline-offset-4"
           : "hover:underline hover:underline-offset-4",
