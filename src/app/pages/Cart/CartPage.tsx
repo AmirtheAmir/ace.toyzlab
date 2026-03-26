@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import {
   readCart,
   removeCartItem,
@@ -82,12 +83,12 @@ export default function CartPage() {
                 </p>
               </div>
 
-              <button
-                type="button"
+              <Link
+                href="/checkout"
                 className="px-9 py-3.5 bg-brand-primary text-text-primary font-M-600 hover:bg-brand-secondary hover:ring hover:ring-border-primary transition-all duration-300 cursor-pointer "
               >
                 Checkout
-              </button>
+              </Link>
             </div>
           </div>
         )}

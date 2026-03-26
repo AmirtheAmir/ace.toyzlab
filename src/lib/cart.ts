@@ -5,6 +5,8 @@ export type CartSessionItem = {
   image: string;
   quantity: number;
   unitPrice: number;
+  currencySymbol?: string;
+  currencyCode?: string;
 };
 
 const CART_KEY = "cart";
@@ -54,6 +56,8 @@ export function addToCart(item: CartSessionItem) {
       quantity: cart[existingIndex].quantity + item.quantity,
       unitPrice: item.unitPrice,
       image: item.image,
+      currencySymbol: item.currencySymbol,
+      currencyCode: item.currencyCode,
     };
   } else {
     cart.push(item);

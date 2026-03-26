@@ -620,7 +620,7 @@ export default function AccountPage() {
           {activeTab === "orders" ? (
             <OrdersOrganism />
           ) : (
-            <div className="grid  w-full gap-4 lg:grid-cols-2">
+            <div className="grid  w-full sm:gap-4 gap-20 lg:grid-cols-2">
               <ProfileOrganism
                 profileName={profileName}
                 profileEmail={profileEmail}

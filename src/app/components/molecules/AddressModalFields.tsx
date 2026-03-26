@@ -28,11 +28,13 @@ type Props = {
   value: AddressDraft;
   onChange: (next: AddressDraft) => void;
   getCountryPrefix: (country: CountryValue) => string;
+  showDefaultToggle?: boolean;
+  showPhoneCountryDropdown?: boolean;
 };
 
 function CountryFlagIcon({ country }: { country: CountryValue }) {
   const Icon = country === "Australia" ? AustraliaIcon : FinlandIcon;
-  return <Icon className="h-4 w-4" />;
+  return <Icon />;
 }
 
 const COUNTRY_OPTIONS: CountryValue[] = ["Finland", "Australia"];
@@ -41,6 +43,7 @@ export default function AddressModalFields({
   value,
   onChange,
   getCountryPrefix,
+  showDefaultToggle = true,
 }: Props) {
   const [isCountryOpen, setIsCountryOpen] = useState(false);
   const countryRef = useRef<HTMLDivElement | null>(null);
@@ -182,11 +185,13 @@ export default function AddressModalFields({
         </div>
       </div>
 
-      <AccountCheckbox
-        checked={value.is_default}
-        onChange={(is_default) => onChange({ ...value, is_default })}
-        label="This is my default address"
-      />
+      {showDefaultToggle ? (
+        <AccountCheckbox
+          checked={value.is_default}
+          onChange={(is_default) => onChange({ ...value, is_default })}
+          label="This is my default address"
+        />
+      ) : null}
     </div>
   );
 }

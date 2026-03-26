@@ -58,9 +58,12 @@ export default function AddedToCartOverlay({
           View Cart ({cartCount})
         </Link>
 
-        <button className="py-3.5 w-full font-M-600 bg-brand-primary text-text-primary">
+        <Link
+          href="/checkout"
+          className="py-3.5 w-full text-center font-M-600 bg-brand-primary text-text-primary"
+        >
           Checkout
-        </button>
+        </Link>
 
         <button
           type="button"

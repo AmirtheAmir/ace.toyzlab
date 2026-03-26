@@ -55,6 +55,8 @@ export default function ProductPageInformation({ product }: Props) {
       image: product.mainImage,
       quantity,
       unitPrice: price,
+      currencySymbol: selectedCurrency.symbol,
+      currencyCode: selectedCurrency.code,
     });
 
     const updatedCount = getCartItemCount();
