@@ -6,11 +6,14 @@ type Props = {
   setOpenMenu: (v: string | null) => void;
 };
 
-export default function NavigationItemProductPages({ openMenu, setOpenMenu }: Props) {
+export default function NavigationItemProductPages({
+  openMenu,
+  setOpenMenu,
+}: Props) {
   const toggle = (key: string) => setOpenMenu(openMenu === key ? null : key);
 
   return (
-    <div className="flex ring ring-border-primary">
+    <div className="flex  ">
       <Link href="/collection/all" onClick={() => setOpenMenu(null)}>
         <NavigationLink label="All" />
       </Link>
@@ -72,9 +75,12 @@ export default function NavigationItemProductPages({ openMenu, setOpenMenu }: Pr
           </div>
         )}
       </div>
-
-      <Link href="/collection/ferrari" onClick={() => setOpenMenu(null)}>
-        <NavigationLink label="FERRARI" exclusive />
+      <Link
+        href="/collection/ferrari"
+        onClick={() => setOpenMenu(null)}
+        className="ml-auto flex flex-1 border-none "
+      >
+        <NavigationLink label="FERRARI" exclusive className="w-full" />
       </Link>
     </div>
   );

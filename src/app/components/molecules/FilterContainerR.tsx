@@ -20,7 +20,7 @@ export default function FilterContainerR({
   resultsCount,
 }: Props) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex sm:items-center sm:flex-row flex-col items-end gap-2">
       <div className="flex items-center gap-2 text-text-secondary font-S-500">
         <SortIcon />
         <span>Sort By</span>

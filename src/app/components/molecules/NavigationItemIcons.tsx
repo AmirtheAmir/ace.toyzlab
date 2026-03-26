@@ -63,7 +63,7 @@ export default function NavigationItemIcons({
 
   return (
     <div className="flex ring ring-border-primary">
-      <div className="flex flex-row gap-2 sm:gap-4 bg-bg-base items-center justify-center px-4 text-text-primary">
+      <div className="flex flex-row gap-2 sm:gap-4 bg-bg-base items-center justify-center px-3 sm:px-4 text-text-primary">
         <NavigationIconButton
           label="Search"
           onClick={() => {
@@ -109,7 +109,7 @@ export default function NavigationItemIcons({
         />
 
         {openMenu === "currency" && (
-          <div className="absolute right-0 top-12.25 gap-2 p-3 flex flex-col z-50 w-63 sm:w-71 bg-bg-base ring ring-border-primary">
+          <div className="absolute right-0 top-12.25 gap-2 p-3 flex flex-col z-50 w-61 sm:w-71 bg-bg-base ring ring-border-primary">
             <CurrencySearchInput
               label="Search"
               value={query}

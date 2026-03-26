@@ -45,7 +45,7 @@ export default function HeroSection({
           <div className="sm:w-1/2 w-2/3 content-in h-full p-4 @container flex flex-col justify-between text-left">
             {/* Top */}
             <div className="select-none @container">
-              <h2 className="mt-4 font-2XL-600 text-text-primary leading-[0.95]">
+              <h2 className="mt-4 sm:font-2XL-600 font-2XL-600-v2 text-text-primary leading-[0.95]">
                 {title}
               </h2>
               <p className="font-L-600-clamp text-text-primary">{subtitle}</p>
@@ -56,8 +56,8 @@ export default function HeroSection({
               <Link
                 href={ctaHref}
                 className={[
-                  "py-3.5 pl-9 pr-6 self-start font-M-600 backdrop-blur-sm",
-                  "flex items-center justify-center gap-2",
+                  "py-3.5 sm:pl-8 sm:pr-6 pr-4 pl-5 self-start font-M-600 backdrop-blur-sm",
+                  "flex items-center justify-center gap-1 sm:gap-2",
                   "text-text-primary",
                   "border border-border-primary",
                   "bg-transparent hover:cursor-pointer hover:bg-bg-inverted hover:text-text-inverted transition-colors duration-300 ease-in",

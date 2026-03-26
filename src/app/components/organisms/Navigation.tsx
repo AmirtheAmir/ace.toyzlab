@@ -110,7 +110,7 @@ export default function Navigation() {
             />
           ) : (
             <div className="w-full ring ring-border-primary">
-              <div className="flex w-full">
+              <div className="flex w-full ">
                 <div className="shrink-0">
                   {isMobileNav ? (
                     <NavigationBurgerButton

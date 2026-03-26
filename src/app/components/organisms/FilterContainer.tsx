@@ -54,7 +54,7 @@ export default function FilterContainer({
   resultsCount,
 }: Props) {
   return (
-    <div className="flex flex-col py-2 h-28 select-none">
+    <div className="flex flex-col py-2 sm:h-22 h-40 select-none">
       <div className="flex items-start justify-between">
         <FilterContainerAP
           showPrice={showPrice}

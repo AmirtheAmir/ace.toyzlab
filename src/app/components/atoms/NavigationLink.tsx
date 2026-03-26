@@ -21,12 +21,16 @@ export default function NavigationLink({
     <button
       type="button"
       onClick={onClick}
-      className={[
-        " border bg-bg-base border-none ringed-right ",
-        "flex hover:cursor-pointer select-none items-center gap-2",
-        "font-S-500 text-text-primary",
-          exclusive ? "hover:bg-brand-supplement-primary transition-colors duration-300 ease-in" : "",
-        hasDropdown ? "py-4 pl-4 pr-2 sm:pl-6 sm:pr-4" : "py-4 sm:px-6 px-4",
+      className={[ 
+        !exclusive && "ringed-right",
+        "flex hover:cursor-pointer select-none items-center justify-center gap-1 sm:gap-2",
+        "font-S-500  text-text-primary",
+        exclusive
+          ? "hover:bg-brand-supplement-primary transition-colors duration-300 ease-in"
+          : "",
+        hasDropdown
+          ? "sm:py-4 py-4 pl-3.5 pr-1.5 sm:pl-6 sm:pr-4"
+          : "py-4 h-full sm:px-6 px-3",
         active
           ? "underline underline-offset-4"
           : "hover:underline hover:underline-offset-4",
@@ -45,4 +49,3 @@ export default function NavigationLink({
     </button>
   );
 }
-

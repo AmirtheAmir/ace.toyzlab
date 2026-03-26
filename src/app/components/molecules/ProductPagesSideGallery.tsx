@@ -34,13 +34,13 @@ export default function ProductPagesSideGallery({
       </div>
 
       {/* THUMBNAILS */}
-      <div className="flex flex-row py-0.5 xl:flex-col gap-4 xl:w-32 shrink-0 order-2 xl:order-1 overflow-x-auto xl:overflow-visible">
+      <div className="flex flex-row p-0.5 xl:flex-col gap-4 xl:w-32 shrink-0 order-2 xl:order-1 overflow-x-auto xl:overflow-visible">
         {images.map((img, index) => (
           <button
             key={`${img}-${index}`}
             type="button"
             onClick={() => setSelectedImage(img)}
-            className="relative  size-32 xl:w-full xl:aspect-square shrink-0 overflow-hidden ring ring-border-primary"
+           className="relative flex-1 aspect-square xl:w-full shrink-0 overflow-hidden ring ring-border-primary"
           >
             <Image
               src={getProductImageUrl(img)}

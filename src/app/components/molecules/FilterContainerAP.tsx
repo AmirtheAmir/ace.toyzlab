@@ -35,7 +35,7 @@ export default function FilterContainerAP({
   counts,
 }: Props) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex sm:items-center sm:flex-row flex-col gap-2">
       <div className="flex items-center gap-2 text-text-secondary font-S-500">
         <FilterIcon />
         <span>Filter</span>

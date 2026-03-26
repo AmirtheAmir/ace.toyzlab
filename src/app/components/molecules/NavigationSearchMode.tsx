@@ -62,7 +62,7 @@ export default function NavigationSearchMode({
           </div>
         </div>
 
-        <div className="flex gap-4 px-4 text-text-primary ringed-currencynavbuttonl">
+        <div className="flex gap-2 sm:gap-4 px-3 sm:px-4 text-text-primary ringed-currencynavbuttonl">
           <NavigationIconButton label="Close Search" onClick={onCloseSearch}>
             <CloseIcon />
           </NavigationIconButton>
