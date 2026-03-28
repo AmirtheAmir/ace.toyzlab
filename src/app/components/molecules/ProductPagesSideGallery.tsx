@@ -17,10 +17,10 @@ export default function ProductPagesSideGallery({
 }: Props) {
   const images = useMemo(() => [mainImage, ...gallery], [mainImage, gallery]);
   const [selectedImage, setSelectedImage] = useState(mainImage);
+  const isTwoImages = images.length === 2;
 
   return (
     <div className="xl:col-span-2 flex flex-col xl:flex-row gap-4">
-      
       {/* MAIN IMAGE */}
       <div className="relative w-full sm:h-104 h-68 xl:flex-1 order-1 xl:order-2">
         <Image
@@ -34,13 +34,19 @@ export default function ProductPagesSideGallery({
       </div>
 
       {/* THUMBNAILS */}
-      <div className="flex flex-row p-0.5 xl:flex-col gap-4 xl:w-32 shrink-0 order-2 xl:order-1 overflow-x-auto xl:overflow-visible">
+      <div
+        className={`flex flex-row p-0.5 xl:flex-col gap-4 xl:w-32 shrink-0 order-2 xl:order-1 
+  overflow-x-auto xl:overflow-visible ${
+    isTwoImages ? "justify-start xl:justify-start" : ""
+  }`}
+      >
         {images.map((img, index) => (
           <button
             key={`${img}-${index}`}
             type="button"
             onClick={() => setSelectedImage(img)}
-           className="relative flex-1 aspect-square xl:w-full shrink-0 overflow-hidden ring ring-border-primary"
+            className={`relative aspect-square overflow-hidden ring ring-border-primary shrink-0
+    ${isTwoImages ? "w-1/3 xl:w-full flex-none" : "flex-1 xl:w-full"}`}
           >
             <Image
               src={getProductImageUrl(img)}
