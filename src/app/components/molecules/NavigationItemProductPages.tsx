@@ -4,17 +4,24 @@ import NavigationLink from "../atoms/NavigationLink";
 type Props = {
   openMenu: string | null;
   setOpenMenu: (v: string | null) => void;
+  onNavigateStart?: (href: string) => void;
 };
 
 export default function NavigationItemProductPages({
   openMenu,
   setOpenMenu,
+  onNavigateStart,
 }: Props) {
   const toggle = (key: string) => setOpenMenu(openMenu === key ? null : key);
 
+  const handleNavigate = (href: string) => {
+    onNavigateStart?.(href);
+    setOpenMenu(null);
+  };
+
   return (
     <div className="flex  ">
-      <Link href="/collection/all" onClick={() => setOpenMenu(null)}>
+      <Link href="/collection/all" onClick={() => handleNavigate("/collection/all")}>
         <NavigationLink label="All" />
       </Link>
 
@@ -30,7 +37,7 @@ export default function NavigationItemProductPages({
           <div className="absolute left-0 top-12.25 z-50 flex w-45 flex-col gap-3 bg-bg-base p-3 ring ring-border-primary">
             <Link
               href="/collection/speed_racer"
-              onClick={() => setOpenMenu(null)}
+              onClick={() => handleNavigate("/collection/speed_racer")}
               className="w-full text-left font-S-500 text-text-secondary transition-colors duration-200 ease-in hover:text-text-primary hover:underline hover:underline-offset-4"
             >
               Speed Racer
@@ -38,7 +45,7 @@ export default function NavigationItemProductPages({
 
             <Link
               href="/collection/batman"
-              onClick={() => setOpenMenu(null)}
+              onClick={() => handleNavigate("/collection/batman")}
               className="w-full text-left font-S-500 text-text-secondary transition-colors duration-200 ease-in hover:text-text-primary hover:underline hover:underline-offset-4"
             >
               Batman
@@ -59,7 +66,7 @@ export default function NavigationItemProductPages({
           <div className="absolute left-0 top-12.25 z-50 flex w-45 flex-col gap-3 bg-bg-base p-3 ring ring-border-primary">
             <Link
               href="/collection/classics"
-              onClick={() => setOpenMenu(null)}
+              onClick={() => handleNavigate("/collection/classics")}
               className="w-full text-left font-S-500 text-text-secondary transition-colors duration-200 ease-in hover:text-text-primary hover:underline hover:underline-offset-4"
             >
               Classics
@@ -67,7 +74,7 @@ export default function NavigationItemProductPages({
 
             <Link
               href="/collection/modern"
-              onClick={() => setOpenMenu(null)}
+              onClick={() => handleNavigate("/collection/modern")}
               className="w-full text-left font-S-500 text-text-secondary transition-colors duration-200 ease-in hover:text-text-primary hover:underline hover:underline-offset-4"
             >
               Modern
@@ -77,7 +84,7 @@ export default function NavigationItemProductPages({
       </div>
       <Link
         href="/collection/ferrari"
-        onClick={() => setOpenMenu(null)}
+        onClick={() => handleNavigate("/collection/ferrari")}
         className="ml-auto flex flex-1 border-none "
       >
         <NavigationLink label="FERRARI" exclusive className="w-full" />

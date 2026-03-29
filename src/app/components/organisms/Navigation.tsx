@@ -2,12 +2,13 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Overlay from "../atoms/Overlay";
 import NavigationItemProductPages from "../molecules/NavigationItemProductPages";
 import NavigationItemIcons from "../molecules/NavigationItemIcons";
 import NavigationSearchMode from "../molecules/NavigationSearchMode";
 import NavigationItemProfileMode from "../molecules/NavigationItemProfileMode";
+import ThreeDotLoader from "../atoms/ThreeDotLoader";
 import { LogoIcon } from "../../../../public/Icons";
 import { getSupabase } from "@/lib/supabase";
 import NavigationBurgerButton from "../molecules/NavigationBurgerButton";
@@ -22,12 +23,16 @@ const MOBILE_SUBMENU_PREFIX = "mobile-submenu:";
 
 export default function Navigation() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const searchParamsKey = searchParams.toString();
+  const currentRoute = searchParamsKey ? `${pathname}?${searchParamsKey}` : pathname;
   const isAccountRoute = pathname?.startsWith("/account") ?? false;
   const router = useRouter();
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [navMode, setNavMode] =
     useState<Exclude<NavMode, "profile">>("default");
   const [accountTab, setAccountTab] = useState<AccountTab>("profile");
+  const [isRouteLoading, setIsRouteLoading] = useState(false);
   const isMobileNav = useIsMobileNav();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const viewMode: NavMode =
@@ -45,11 +50,22 @@ export default function Navigation() {
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
+      setIsRouteLoading(false);
       setOpenMenu(null);
     }, 0);
 
     return () => window.clearTimeout(timeout);
-  }, [pathname, isMobileNav]);
+  }, [pathname, searchParamsKey, isMobileNav]);
+
+  useEffect(() => {
+    if (!isRouteLoading) return;
+
+    const timeout = window.setTimeout(() => {
+      setIsRouteLoading(false);
+    }, 10000);
+
+    return () => window.clearTimeout(timeout);
+  }, [isRouteLoading]);
 
   useEffect(() => {
     function onDown(e: MouseEvent) {
@@ -79,22 +95,42 @@ export default function Navigation() {
     };
   }, [navMode]);
 
+  const onNavigationStart = (href: string) => {
+    const normalizedHref = href.startsWith("/") ? href : `/${href}`;
+
+    if (normalizedHref === currentRoute) {
+      return;
+    }
+
+    setIsRouteLoading(true);
+  };
+
   const onSignOut = async () => {
     const supabase = getSupabase();
     if (!supabase) return;
 
     await supabase.auth.signOut();
     setNavMode("default");
+    onNavigationStart("/auth");
     router.replace("/auth");
   };
 
   const onSelectAccountTab = (tab: AccountTab) => {
+    const href = `/account?tab=${tab}`;
+
+    onNavigationStart(href);
     setAccountTab(tab);
-    router.push(`/account?tab=${tab}`);
+    router.push(href);
   };
 
   return (
     <>
+      {isRouteLoading && (
+        <div className="fixed inset-0 z-[70] bg-bg-base/85">
+          <ThreeDotLoader className="min-h-screen" />
+        </div>
+      )}
+
       <Overlay open={showOverlay} onClose={() => setOpenMenu(null)} />
 
       <div className="sticky top-2 z-50 w-full bg-bg-base">
@@ -127,6 +163,7 @@ export default function Navigation() {
                     <NavigationItemProductPages
                       openMenu={openMenu}
                       setOpenMenu={setOpenMenu}
+                      onNavigateStart={onNavigationStart}
                     />
                   )}
                 </div>
@@ -178,6 +215,7 @@ export default function Navigation() {
 
                         setOpenMenu(`${MOBILE_SUBMENU_PREFIX}${value}`);
                       }}
+                      onNavigateStart={onNavigationStart}
                     />
                   )}
                 </NavigationMobileMenu>
